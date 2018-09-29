@@ -27,6 +27,7 @@ module.exports = appInfo => {
 
   // add your config here
   config.middleware = []
+  config.tablePrefix = 'hospital_'
 
   return config
 }
