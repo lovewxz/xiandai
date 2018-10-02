@@ -2,12 +2,14 @@
 
 const Controller = require('egg').Controller
 
-class UserController extends Controller {
-  async create() {
-    const ctx = this.ctx
-    const result = await ctx.service.user.create()
-    ctx.body = result
+class UserAccessController extends Controller {
+  async getUserById() {
+    const { ctx } = this
+    const { user } = ctx.state
+    const userId = user.data.userId
+    const res = await ctx.service.user.getUserById(userId)
+    ctx.helper.success({ ctx, res })
   }
 }
 
-module.exports = UserController
+module.exports = UserAccessController

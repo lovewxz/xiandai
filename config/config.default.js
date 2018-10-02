@@ -21,13 +21,29 @@ module.exports = appInfo => {
       agent: false
     }
   })
-
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_xiandai'
 
   // add your config here
-  config.middleware = []
+  config.middleware = ['errorHandler']
   config.tablePrefix = 'hospital_'
+
+  config.security = {
+    csrf: {
+      enable: false
+    },
+    domainWhiteList: ['http://localhost:9528']
+  }
+
+  config.cors = {
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTION'
+  }
+
+  config.jwt = {
+    secret: 'xiandai',
+    enable: true, // default is false
+    ignore: '/userAccess'
+  }
 
   return config
 }
