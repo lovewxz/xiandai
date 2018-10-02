@@ -26,7 +26,10 @@ module.exports = appInfo => {
 
   // add your config here
   config.middleware = ['errorHandler']
+  // 表前缀
   config.tablePrefix = 'hospital_'
+  // api前缀
+  config.apiPrefix = '/api/v1'
 
   config.security = {
     csrf: {
@@ -42,7 +45,7 @@ module.exports = appInfo => {
   config.jwt = {
     secret: 'xiandai',
     enable: true, // default is false
-    ignore: '/userAccess'
+    ignore: '/api/v1/userAccess'
   }
 
   return config
