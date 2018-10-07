@@ -25,4 +25,10 @@ module.exports = app => {
     `${app.config.apiPrefix}/channel`,
     controller.channel
   )
+
+  router.resources(
+    'contentClass',
+    `${app.config.apiPrefix}/contentClass`,
+    controller.contentClass
+  )
 }
