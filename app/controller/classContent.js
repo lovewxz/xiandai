@@ -6,8 +6,8 @@ class ClassContentController extends Controller {
   constructor(ctx) {
     super(ctx)
     this.createClassContentTransfer = {
-        class_id: { type: 'int', require: true, allowEmpty: false },
-        content_id: { type: 'int', require: true, allowEmpty: false }
+      class_id: { type: 'int', require: true, allowEmpty: false },
+      content_id: { type: 'int', require: true, allowEmpty: false }
     }
   }
   async index() {
