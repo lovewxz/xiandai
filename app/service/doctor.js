@@ -31,7 +31,7 @@ class DoctorService extends Service {
         up_hits: params.up_hits,
         img_url: params.img_url
       })
-      await conn.insert(`${app.config.tablePrefix}content`, {
+      const contentObj = {
         channel_id: params.channel_id,
         type_id: params.type_id,
         title: params.title,
@@ -40,7 +40,18 @@ class DoctorService extends Service {
         content: params.content,
         hits: params.hits,
         search_text: params.search_text
-      })
+      }
+      this.ctx.service.content.create(contentObj)
+      // await conn.insert(`${app.config.tablePrefix}content`, {
+      //   channel_id: params.channel_id,
+      //   type_id: params.type_id,
+      //   title: params.title,
+      //   sub_title: params.sub_title,
+      //   introduction: params.introduction,
+      //   content: params.content,
+      //   hits: params.hits,
+      //   search_text: params.search_text
+      // })
       return { success: true }
     }, ctx)
     return result
