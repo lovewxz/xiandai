@@ -6,7 +6,7 @@ class DoctorService extends Service {
   async index() {
     const { app } = this
     const queryColumn =
-      'a.id id,a.doctor_name doctor_name,a.goods_project goods_project,a.appointment_count appointment_count,a.up_hits up_hits,a.img_url img_url,c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
+      'a.id id,a.content_id content_id,a.doctor_name doctor_name,a.goods_project goods_project,a.appointment_count appointment_count,a.up_hits up_hits,a.img_url img_url,c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }doctor a left join ${
@@ -64,7 +64,6 @@ class DoctorService extends Service {
       await conn.update(
         `${app.config.tablePrefix}doctor`,
         {
-          content_id: params.content_id,
           doctor_name: params.doctor_name,
           title: params.title,
           goods_project: params.goods_project,
@@ -92,7 +91,7 @@ class DoctorService extends Service {
         },
         {
           where: {
-            content_id: id
+            content_id: params.content_id
           }
         }
       )
@@ -104,12 +103,14 @@ class DoctorService extends Service {
     const { app } = this
     const ctx = this.ctx
     const result = await app.mysql.beginTransactionScope(async conn => {
-      // don't commit or rollback by yourself
+      const doctorObj = await app.mysql.get(`${app.config.tablePrefix}doctor`, {
+        id
+      })
       await conn.delete(`${app.config.tablePrefix}doctor`, {
         id
       })
       await conn.delete(`${app.config.tablePrefix}content`, {
-        content_id: id
+        content_id: doctorObj.content_id
       })
       return { success: true }
     }, ctx)

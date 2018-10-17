@@ -40,12 +40,12 @@ module.exports = app => {
   router.resources(
     'classContent',
     `${app.config.apiPrefix}/classContent`,
-    controller.contentClass
+    controller.classContent
   )
 
   router.resources(
     'doctor',
     `${app.config.apiPrefix}/doctor`,
-    controller.contentClass
+    controller.doctor
   )
 }
