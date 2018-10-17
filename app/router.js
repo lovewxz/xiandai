@@ -20,6 +20,11 @@ module.exports = app => {
     controller.user.getUserById
   )
 
+  router.get(
+    `${app.config.apiPrefix}/upload/token`,
+    controller.upload.getUploadToken
+  )
+
   router.resources(
     'channel',
     `${app.config.apiPrefix}/channel`,

@@ -48,5 +48,11 @@ module.exports = appInfo => {
     ignore: '/api/v1/userAccess'
   }
 
+  config.qiniu = {
+    AK: 'Jrida2qZ_ul1FgR6BZhyrhNdreZcCk3XR_mLuXr2',
+    SK: 'If-CH9GODwIzDYMXF3m5uaSGcvyGOPxCbCcAsKRT',
+    bucket: 'mingyi'
+  }
+
   return config
 }
