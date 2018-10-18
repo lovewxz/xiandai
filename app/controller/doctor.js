@@ -6,22 +6,15 @@ class DoctorController extends Controller {
   constructor(ctx) {
     super(ctx)
     this.createDoctorTransfer = {
-      channel_id: { type: 'int', require: true, allowEmpty: false },
-      type_id: { type: 'int', require: true, allowEmpty: false },
-      sub_title: { type: 'string', require: true, allowEmpty: false },
-      introduction: { type: 'string', require: true, allowEmpty: false },
-      content: { type: 'string', require: true, allowEmpty: false },
-      hits: { type: 'int', require: true, allowEmpty: false },
-      search_text: { type: 'string', require: true, allowEmpty: false },
-
-      content_id: { type: 'int', require: true, allowEmpty: false },
+      sub_title: { type: 'string', require: false, allowEmpty: true },
+      content: { type: 'string', require: false, allowEmpty: true },
       doctor_name: { type: 'string', require: true, allowEmpty: false },
       title: { type: 'string', require: true, allowEmpty: false },
-      goods_project: { type: 'string', require: true, allowEmpty: false },
-      appointment_count: { type: 'int', require: true, allowEmpty: false },
-      up_hits: { type: 'int', require: true, allowEmpty: false },
-      img_url: { type: 'string', require: true, allowEmpty: false },
-      list_url: { type: 'string', require: true, allowEmpty: false }
+      goods_project: { type: 'array', require: false, allowEmpty: true },
+      appointment_count: { type: 'string', require: true, allowEmpty: true },
+      up_hits: { type: 'string', require: true, allowEmpty: true },
+      img_url: { type: 'string', require: true, allowEmpty: true },
+      list_url: { type: 'string', require: true, allowEmpty: true }
     }
   }
   async index() {

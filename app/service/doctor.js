@@ -1,12 +1,13 @@
 'use strict'
 
 const Service = require('egg').Service
+const uuidV4 = require('uuid/v4')
 
 class DoctorService extends Service {
   async index() {
     const { app } = this
     const queryColumn =
-      'a.id id,a.content_id content_id,a.doctor_name doctor_name,a.goods_project goods_project,a.appointment_count appointment_count,a.up_hits up_hits,a.img_url img_url,a.list_url list_url c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
+      'a.id id,a.content_id content_id,a.doctor_name doctor_name,a.goods_project goods_project,a.appointment_count appointment_count,a.up_hits up_hits,a.img_url img_url,a.list_url list_url, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }doctor a left join ${
@@ -18,41 +19,35 @@ class DoctorService extends Service {
     return result
   }
   async create(params) {
-    const { app } = this
-    const ctx = this.ctx
+    const { app, ctx } = this
+    const uuid = uuidV4()
     const result = await app.mysql.beginTransactionScope(async conn => {
+      const contentObj = {
+        content_id: uuid,
+        title: params.title,
+        sub_title: params.sub_title,
+        content: params.content
+      }
+      await ctx.service.content.create(contentObj)
+
+      // await conn.insert(`${app.config.tablePrefix}content`, {
+      //   content_id: uuid,
+      //   title: params.title,
+      //   sub_title: params.sub_title,
+      //   content: params.content
+      // })
+
       // don't commit or rollback by yourself
       await conn.insert(`${app.config.tablePrefix}doctor`, {
-        content_id: params.content_id,
+        content_id: uuid,
         doctor_name: params.doctor_name,
-        title: params.title,
-        goods_project: params.goods_project,
+        goods_project: params.goods_project.join(','),
         appointment_count: params.appointment_count,
         up_hits: params.up_hits,
         img_url: params.img_url,
         list_url: params.list_url
       })
-      const contentObj = {
-        channel_id: params.channel_id,
-        type_id: params.type_id,
-        title: params.title,
-        sub_title: params.sub_title,
-        introduction: params.introduction,
-        content: params.content,
-        hits: params.hits,
-        search_text: params.search_text
-      }
-      this.ctx.service.content.create(contentObj)
-      // await conn.insert(`${app.config.tablePrefix}content`, {
-      //   channel_id: params.channel_id,
-      //   type_id: params.type_id,
-      //   title: params.title,
-      //   sub_title: params.sub_title,
-      //   introduction: params.introduction,
-      //   content: params.content,
-      //   hits: params.hits,
-      //   search_text: params.search_text
-      // })
+
       return { success: true }
     }, ctx)
     return result

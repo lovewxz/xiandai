@@ -6,14 +6,11 @@ class ContentService extends Service {
   async create(params) {
     const { app } = this
     const result = await app.mysql.insert(`${app.config.tablePrefix}content`, {
-      channel_id: params.channel_id,
-      type_id: params.type_id,
+      content_id: params.content_id,
       title: params.title,
       sub_title: params.sub_title,
-      introduction: params.introduction,
       content: params.content,
-      hits: params.hits,
-      search_text: params.search_text
+      hits: params.hits
     })
     return result.affectedRows === 1
   }
@@ -22,14 +19,11 @@ class ContentService extends Service {
     const result = await app.mysql.update(
       `${app.config.tablePrefix}content`,
       {
-        channel_id: params.channel_id,
-        type_id: params.type_id,
+        content_id: params.content_id,
         title: params.title,
         sub_title: params.sub_title,
-        introduction: params.introduction,
         content: params.content,
-        hits: params.hits,
-        search_text: params.search_text
+        hits: params.hits
       },
       {
         where: {
