@@ -20,7 +20,8 @@ class DoctorController extends Controller {
       goods_project: { type: 'string', require: true, allowEmpty: false },
       appointment_count: { type: 'int', require: true, allowEmpty: false },
       up_hits: { type: 'int', require: true, allowEmpty: false },
-      img_url: { type: 'string', require: true, allowEmpty: false }
+      img_url: { type: 'string', require: true, allowEmpty: false },
+      list_url: { type: 'string', require: true, allowEmpty: false }
     }
   }
   async index() {

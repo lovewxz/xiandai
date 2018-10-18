@@ -6,7 +6,7 @@ class DoctorService extends Service {
   async index() {
     const { app } = this
     const queryColumn =
-      'a.id id,a.content_id content_id,a.doctor_name doctor_name,a.goods_project goods_project,a.appointment_count appointment_count,a.up_hits up_hits,a.img_url img_url,c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
+      'a.id id,a.content_id content_id,a.doctor_name doctor_name,a.goods_project goods_project,a.appointment_count appointment_count,a.up_hits up_hits,a.img_url img_url,a.list_url list_url c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }doctor a left join ${
@@ -29,7 +29,8 @@ class DoctorService extends Service {
         goods_project: params.goods_project,
         appointment_count: params.appointment_count,
         up_hits: params.up_hits,
-        img_url: params.img_url
+        img_url: params.img_url,
+        list_url: params.list_url
       })
       const contentObj = {
         channel_id: params.channel_id,
@@ -69,7 +70,8 @@ class DoctorService extends Service {
           goods_project: params.goods_project,
           appointment_count: params.appointment_count,
           up_hits: params.up_hits,
-          img_url: params.img_url
+          img_url: params.img_url,
+          list_url: params.list_url
         },
         {
           where: {
