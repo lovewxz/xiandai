@@ -10,7 +10,8 @@ class ContentService extends Service {
       title: params.title,
       sub_title: params.sub_title,
       content: params.content,
-      hits: params.hits
+      hits: params.hits,
+      status: params.status
     })
     return result.affectedRows === 1
   }
@@ -23,7 +24,8 @@ class ContentService extends Service {
         title: params.title,
         sub_title: params.sub_title,
         content: params.content,
-        hits: params.hits
+        hits: params.hits,
+        status: params.status
       },
       {
         where: {

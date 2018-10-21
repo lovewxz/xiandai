@@ -26,16 +26,10 @@ class DoctorService extends Service {
         content_id: uuid,
         title: params.title,
         sub_title: params.sub_title,
-        content: params.content
+        content: params.content,
+        status: params.status
       }
       await ctx.service.content.create(contentObj)
-
-      // await conn.insert(`${app.config.tablePrefix}content`, {
-      //   content_id: uuid,
-      //   title: params.title,
-      //   sub_title: params.sub_title,
-      //   content: params.content
-      // })
 
       // don't commit or rollback by yourself
       await conn.insert(`${app.config.tablePrefix}doctor`, {
@@ -45,7 +39,8 @@ class DoctorService extends Service {
         appointment_count: params.appointment_count,
         up_hits: params.up_hits,
         img_url: params.img_url,
-        list_url: params.list_url
+        list_url: params.list_url,
+        profession: params.profession
       })
 
       return { success: true }
@@ -66,7 +61,8 @@ class DoctorService extends Service {
           appointment_count: params.appointment_count,
           up_hits: params.up_hits,
           img_url: params.img_url,
-          list_url: params.list_url
+          list_url: params.list_url,
+          profession: params.profession
         },
         {
           where: {
@@ -84,7 +80,8 @@ class DoctorService extends Service {
           introduction: params.introduction,
           content: params.content,
           hits: params.hits,
-          search_text: params.search_text
+          search_text: params.search_text,
+          status: params.status
         },
         {
           where: {

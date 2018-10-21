@@ -14,7 +14,9 @@ class DoctorController extends Controller {
       appointment_count: { type: 'string', require: true, allowEmpty: true },
       up_hits: { type: 'string', require: true, allowEmpty: true },
       img_url: { type: 'string', require: true, allowEmpty: true },
-      list_url: { type: 'string', require: true, allowEmpty: true }
+      list_url: { type: 'string', require: true, allowEmpty: true },
+      status: { type: 'string', require: true, allowEmpty: true },
+      profession: { type: 'string', require: true, allowEmpty: true }
     }
   }
   async index() {
