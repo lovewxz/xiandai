@@ -6,7 +6,6 @@ class DoctorController extends Controller {
   constructor(ctx) {
     super(ctx)
     this.createDoctorTransfer = {
-      sub_title: { type: 'string', require: false, allowEmpty: true },
       content: { type: 'string', require: false, allowEmpty: true },
       doctor_name: { type: 'string', require: true, allowEmpty: false },
       title: { type: 'string', require: true, allowEmpty: false },
@@ -51,7 +50,7 @@ class DoctorController extends Controller {
     const res = await ctx.service.doctor.destroy(id)
     ctx.helper.success({ ctx, res })
   }
-  async show() {
+  async edit() {
     const { ctx } = this
     const { id } = ctx.params
     if (!id) {
