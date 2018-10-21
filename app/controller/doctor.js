@@ -11,8 +11,8 @@ class DoctorController extends Controller {
       doctor_name: { type: 'string', require: true, allowEmpty: false },
       title: { type: 'string', require: true, allowEmpty: false },
       goods_project: { type: 'array', require: false, allowEmpty: true },
-      appointment_count: { type: 'string', require: true, allowEmpty: true },
-      up_hits: { type: 'string', require: true, allowEmpty: true },
+      appointment_count: { type: 'int', require: true, allowEmpty: true },
+      up_hits: { type: 'int', require: true, allowEmpty: true },
       img_url: { type: 'string', require: true, allowEmpty: true },
       list_url: { type: 'string', require: true, allowEmpty: true }
     }
@@ -47,6 +47,18 @@ class DoctorController extends Controller {
       ctx.throw('404', 'id不存在')
     }
     const res = await ctx.service.doctor.destroy(id)
+    ctx.helper.success({ ctx, res })
+  }
+  async show() {
+    const { ctx } = this
+    const { id } = ctx.params
+    if (!id) {
+      throw ('404', 'id不存在')
+    }
+    let res = await ctx.service.doctor.getDoctorById(id)
+    res = Object.assign(res, {
+      goods_project: res.goods_project ? res.goods_project.split(',') : []
+    })
     ctx.helper.success({ ctx, res })
   }
 }
