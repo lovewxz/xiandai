@@ -5,6 +5,8 @@ const Service = require('egg').Service
 class CaseService extends Service {
   async index(params) {
     const { app } = this
+    params.pageNo = isNaN(params.pageNo) ? 1 : params.pageNo
+    params.pageSize = isNaN(params.pageSize) ? 100 : params.pageSize
     const limitCount = (params.pageNo - 1) * params.pageSize
     const queryColumn =
       'a.id id,a.name name,a.head_img head_img,a.result_img result_img,a.build_plan build_plan,c.channel_name channel_name,b.class_name class_name,a.introduction introduction,a.status status'
