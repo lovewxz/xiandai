@@ -7,6 +7,7 @@ class CaseController extends Controller {
     super(ctx)
     this.createCaseTransfer = {
       class_id: { type: 'int', require: true, allowEmpty: false },
+      title: { type: 'string', require: true, allowEmpty: false },
       name: { type: 'string', require: true, allowEmpty: false },
       introduction: { type: 'string', require: true, allowEmpty: false },
       head_img: { type: 'string', require: true, allowEmpty: false },

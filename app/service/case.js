@@ -9,7 +9,7 @@ class CaseService extends Service {
     params.pageSize = isNaN(params.pageSize) ? 100 : params.pageSize
     const limitCount = (params.pageNo - 1) * params.pageSize
     const queryColumn =
-      'a.id id,a.name name,a.head_img head_img,a.result_img result_img,a.build_plan build_plan,c.channel_name channel_name,b.class_name class_name,a.introduction introduction,a.status status'
+      'a.id id,a.name name,a.title title,a.head_img head_img,a.result_img result_img,a.build_plan build_plan,c.channel_name channel_name,b.class_name class_name,a.introduction introduction,a.status status'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }case a left join ${
@@ -38,6 +38,7 @@ class CaseService extends Service {
     )
 
     const result = await app.mysql.insert(`${app.config.tablePrefix}case`, {
+      title: params.title,
       name: params.name,
       head_img: params.head_img,
       class_id: params.class_id,
@@ -62,6 +63,7 @@ class CaseService extends Service {
         channel_id: contentClass.channel_id,
         class_id: params.class_id,
         introduction: params.introduction,
+        title: params.title,
         name: params.name,
         head_img: params.head_img,
         result_img: params.result_img,
@@ -88,7 +90,7 @@ class CaseService extends Service {
   async getCaseById(id) {
     const { app } = this
     const queryColumn =
-      'a.id id,a.class_id class_id,b.class_name class_name,a.name name,a.head_img head_img,a.result_img result_img,a.build_plan build_plan,a.introduction introduction,a.status status,a.article_json time_list'
+      'a.id id,a.class_id class_id,b.class_name class_name,a.name name,a.title title, a.head_img head_img,a.result_img result_img,a.build_plan build_plan,a.introduction introduction,a.status status,a.article_json time_list'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }case a left join ${
