@@ -52,13 +52,17 @@ class ContentClassService extends Service {
     if (blExist) {
       throw new Error()
     }
-    const result = await app.mysql.delete(
-      `${app.config.tablePrefix}content_class`,
-      {
-        class_id: id
+    const sql =
+      'SELECT class_id FROM hospital_content_class WHERE FIND_IN_SET(class_id,queryChildrenTypeInfo(?))'
+    const allClassId = await this.app.mysql.query(sql, id)
+    const result = await app.mysql.beginTransactionScope(async conn => {
+      for (const obj in allClassId) {
+        await conn.delete(`${app.config.tablePrefix}content_class`, {
+          class_id: allClassId[obj].class_id
+        })
       }
-    )
-    return result.affectedRows === 1
+    }, ctx)
+    return result
   }
 }
 
