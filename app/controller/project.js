@@ -7,7 +7,7 @@ class ProjectController extends Controller {
     super(ctx)
     this.createProjectTransfer = {
       channel_id: { type: 'int', require: true, allowEmpty: false },
-      type_id: { type: 'int', require: true, allowEmpty: false },
+      class_id: { type: 'int', require: true, allowEmpty: false },
       sub_title: { type: 'string', require: true, allowEmpty: false },
       introduction: { type: 'string', require: true, allowEmpty: false },
       content: { type: 'string', require: true, allowEmpty: false },

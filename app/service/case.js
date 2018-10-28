@@ -3,93 +3,96 @@
 const Service = require('egg').Service
 
 class CaseService extends Service {
-  async index() {
+  async index(params) {
     const { app } = this
+    const limitCount = (params.pageNo - 1) * params.pageSize
     const queryColumn =
-      'a.id id,a.name name,a.head_img head_img,a.result_img result_img,a.build_plan build_plan,c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
+      'a.id id,a.name name,a.head_img head_img,a.result_img result_img,a.build_plan build_plan,c.channel_name channel_name,b.class_name class_name,a.introduction introduction,a.status status'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
-    }doctor a left join ${
+    }case a left join ${
       app.config.tablePrefix
-    }content b on a.content_id = b.content_id left join ${
+    }content_class b on a.class_id = b.class_id left join ${
       app.config.tablePrefix
-    }channel c on b.channel_id = c.channel_id`
-    const result = await this.app.mysql.query(sql)
-    return result
+    }channel c on b.channel_id = c.channel_id limit ?,?`
+    const paramsSql = [limitCount, parseInt(params.pageSize)]
+    const result = await this.app.mysql.query(sql, paramsSql)
+
+    const resultTotalCount = await this.app.mysql.queryOne(
+      `select count(1) totalCount from ${app.config.tablePrefix}case`
+    )
+    const resultObj = {
+      detail: result,
+      summary: resultTotalCount
+    }
+    return resultObj
   }
+
   async create(params) {
     const { app } = this
-    const ctx = this.ctx
-    const result = await app.mysql.beginTransactionScope(async conn => {
-      // don't commit or rollback by yourself
-      await conn.insert(`${app.config.tablePrefix}project`, {
-        content_id: params.content_id,
-        name: params.name,
-        head_img: params.head_img,
-        result_img: params.result_img,
-        build_plan: params.build_plan
-      })
-      const contentObj = {
-        channel_id: params.channel_id,
-        type_id: params.type_id,
-        title: params.title,
-        sub_title: params.sub_title,
-        introduction: params.introduction,
-        content: params.content,
-        hits: params.hits,
-        search_text: params.search_text
-      }
-      this.ctx.service.content.create(contentObj)
-      return { success: true }
-    }, ctx)
-    return result
+    const contentClass = await this.app.mysql.get(
+      `${app.config.tablePrefix}content_class`,
+      { class_id: params.class_id }
+    )
+
+    const result = await app.mysql.insert(`${app.config.tablePrefix}case`, {
+      name: params.name,
+      head_img: params.head_img,
+      class_id: params.class_id,
+      channel_id: contentClass.channel_id,
+      result_img: params.result_img,
+      build_plan: params.build_plan.join(),
+      introduction: params.introduction,
+      status: params.status,
+      article_json: JSON.stringify(params.time_list)
+    })
+    return result.affectedRows === 1
   }
   async update(params, id) {
     const { app } = this
-    const ctx = this.ctx
-    const result = await app.mysql.beginTransactionScope(async conn => {
-      // don't commit or rollback by yourself
-      await conn.update(
-        `${app.config.tablePrefix}case`,
-        {
-          content_id: params.content_id,
-          name: params.name,
-          head_img: params.head_img,
-          result_img: params.result_img,
-          build_plan: params.build_plan
-        },
-        {
-          where: {
-            id
-          }
-        }
-      )
-      const contentObj = {
-        channel_id: params.channel_id,
-        type_id: params.type_id,
-        title: params.title,
-        sub_title: params.sub_title,
+    const contentClass = await this.app.mysql.get(
+      `${app.config.tablePrefix}content_class`,
+      { class_id: params.class_id }
+    )
+    const result = await app.mysql.update(
+      `${app.config.tablePrefix}case`,
+      {
+        channel_id: contentClass.channel_id,
+        class_id: params.class_id,
         introduction: params.introduction,
-        content: params.content,
-        hits: params.hits,
-        search_text: params.search_text
+        name: params.name,
+        head_img: params.head_img,
+        result_img: params.result_img,
+        build_plan: params.build_plan,
+        status: params.status,
+        article_json: JSON.stringify(params.time_list)
+      },
+      {
+        where: {
+          id
+        }
       }
-      this.ctx.service.content.update(contentObj, params.id)
-      return { success: true }
-    }, ctx)
-    return result
+    )
+    return result.affectedRows === 1
   }
   async destroy(id) {
     const { app } = this
-    const ctx = this.ctx
-    const result = await app.mysql.beginTransactionScope(async conn => {
-      // don't commit or rollback by yourself
-      await conn.delete(`${app.config.tablePrefix}case`, {
-        id
-      })
-      this.ctx.service.content.destroy(id)
-      return { success: true }
-    }, ctx)
+    const result = await app.mysql.delete(`${app.config.tablePrefix}case`, {
+      id
+    })
+    return result.affectedRows === 1
+  }
+
+  async getCaseById(id) {
+    const { app } = this
+    const queryColumn =
+      'a.id id,a.class_id class_id,b.class_name class_name,a.name name,a.head_img head_img,a.result_img result_img,a.build_plan build_plan,a.introduction introduction,a.status status,a.article_json time_list'
+    const sql = `select ${queryColumn} from ${
+      app.config.tablePrefix
+    }case a left join ${
+      app.config.tablePrefix
+    }content_class b on a.class_id = b.class_id where a.id = ?`
+    const result = await this.app.mysql.queryOne(sql, id)
     return result
   }
 }

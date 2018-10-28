@@ -3,6 +3,30 @@
 const Service = require('egg').Service
 
 class ContentService extends Service {
+  async queryByChannelId(channelId) {
+    const { app } = this
+    const result = await app.mysql.get(`${app.config.tablePrefix}content`, {
+      channel_id: channelId
+    })
+    let blExist = false
+    if (result != null) {
+      blExist = true
+    }
+    return blExist
+  }
+
+  async queryByClassId(classId) {
+    const { app } = this
+    const sql =
+      'select count(1) count from hospital_content where  class_id in(SELECT class_id FROM hospital_content_class WHERE FIND_IN_SET(class_id,queryChildrenTypeInfo(?)))'
+    const result = await app.mysql.queryOne(sql, classId)
+    let blExist = false
+    if (result.count > 0) {
+      blExist = true
+    }
+    return blExist
+  }
+
   async create(params) {
     const { app } = this
     const result = await app.mysql.insert(`${app.config.tablePrefix}content`, {

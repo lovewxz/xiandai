@@ -48,4 +48,6 @@ module.exports = app => {
     `${app.config.apiPrefix}/doctor`,
     controller.doctor
   )
+
+  router.resources('case', `${app.config.apiPrefix}/case`, controller.case)
 }

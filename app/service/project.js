@@ -28,7 +28,7 @@ class ProjectService extends Service {
       })
       const contentObj = {
         channel_id: params.channel_id,
-        type_id: params.type_id,
+        class_id: params.class_id,
         title: params.title,
         sub_title: params.sub_title,
         introduction: params.introduction,
@@ -60,7 +60,7 @@ class ProjectService extends Service {
       )
       const contentObj = {
         channel_id: params.channel_id,
-        type_id: params.type_id,
+        class_id: params.class_id,
         title: params.title,
         sub_title: params.sub_title,
         introduction: params.introduction,

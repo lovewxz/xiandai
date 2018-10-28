@@ -5,25 +5,21 @@ const Controller = require('egg').Controller
 class CaseController extends Controller {
   constructor(ctx) {
     super(ctx)
-    this.createProjectTransfer = {
-      channel_id: { type: 'int', require: true, allowEmpty: false },
-      type_id: { type: 'int', require: true, allowEmpty: false },
-      sub_title: { type: 'string', require: true, allowEmpty: false },
-      introduction: { type: 'string', require: true, allowEmpty: false },
-      content: { type: 'string', require: true, allowEmpty: false },
-      hits: { type: 'int', require: true, allowEmpty: false },
-      search_text: { type: 'string', require: true, allowEmpty: false },
-
-      content_id: { type: 'int', require: true, allowEmpty: false },
+    this.createCaseTransfer = {
+      class_id: { type: 'int', require: true, allowEmpty: false },
       name: { type: 'string', require: true, allowEmpty: false },
+      introduction: { type: 'string', require: true, allowEmpty: false },
       head_img: { type: 'string', require: true, allowEmpty: false },
       result_img: { type: 'string', require: true, allowEmpty: false },
-      build_plan: { type: 'string', require: true, allowEmpty: false }
+      status: { type: 'int', require: true, allowEmpty: false },
+
+      time_list: { type: 'array', require: true, allowEmpty: false }
     }
   }
   async index() {
     const { ctx } = this
-    const res = await ctx.service.case.index()
+    const params = ctx.request.query || {}
+    const res = await ctx.service.case.index(params)
     ctx.helper.success({ ctx, res })
   }
   async create() {
@@ -51,6 +47,20 @@ class CaseController extends Controller {
       ctx.throw('404', 'id不存在')
     }
     const res = await ctx.service.case.destroy(id)
+    ctx.helper.success({ ctx, res })
+  }
+
+  async edit() {
+    const { ctx } = this
+    const { id } = ctx.params
+    if (!id) {
+      throw ('404', 'id不存在')
+    }
+    let res = await ctx.service.case.getCaseById(id)
+    res = Object.assign(res, {
+      build_plan: res.build_plan ? res.build_plan.split(',') : [],
+      time_list: JSON.parse(res.time_list)
+    })
     ctx.helper.success({ ctx, res })
   }
 }

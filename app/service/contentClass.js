@@ -47,7 +47,11 @@ class ContentClassService extends Service {
     return result.affectedRows === 1
   }
   async destroy(id) {
-    const { app } = this
+    const { app, ctx } = this
+    const blExist = await ctx.service.content.queryByClassId(id)
+    if (blExist) {
+      throw new Error()
+    }
     const result = await app.mysql.delete(
       `${app.config.tablePrefix}content_class`,
       {
