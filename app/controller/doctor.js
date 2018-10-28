@@ -14,7 +14,7 @@ class DoctorController extends Controller {
       up_hits: { type: 'int', require: true, allowEmpty: true },
       img_url: { type: 'string', require: true, allowEmpty: true },
       list_url: { type: 'string', require: true, allowEmpty: true },
-      status: { type: 'string', require: true, allowEmpty: true },
+      status: { type: 'int', require: true, allowEmpty: true },
       profession: { type: 'string', require: true, allowEmpty: true }
     }
   }
