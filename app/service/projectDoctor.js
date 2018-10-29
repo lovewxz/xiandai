@@ -52,6 +52,17 @@ class ProjectDoctorService extends Service {
     )
     return result.affectedRows === 1
   }
+
+  async delete(projectId) {
+    const { app } = this
+    const result = await app.mysql.delete(
+      `${app.config.tablePrefix}project_doctor`,
+      {
+        project_id: projectId
+      }
+    )
+    return result.affectedRows === 1
+  }
 }
 
 module.exports = ProjectDoctorService
