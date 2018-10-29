@@ -6,14 +6,18 @@ const uuidV4 = require('uuid/v4')
 class ProjectService extends Service {
   async index(params) {
     const { app } = this
+    params.pageNo = isNaN(params.pageNo) ? 1 : params.pageNo
+    params.pageSize = isNaN(params.pageSize) ? 100 : params.pageSize
     const limitCount = (params.pageNo - 1) * params.pageSize
     const queryColumn =
-      'a.id id,a.head_img head_img,a.result_img result_img,a.recover_time recover_time,a.advantange advantange,a.fit_people fit_people,c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
+      'a.id id,a.head_img head_img,a.result_img result_img,a.recover_time recover_time,a.advantange advantange,a.fit_people fit_people,c.channel_name channel_name,d.class_name, b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }project a left join ${
       app.config.tablePrefix
     }content b on a.content_id = b.content_id left join ${
+      app.config.tablePrefix
+    }content_class d on d.class_id = b.class_id left join ${
       app.config.tablePrefix
     }channel c on b.channel_id = c.channel_id limit ?,?`
     const paramsSql = [limitCount, parseInt(params.pageSize)]
@@ -96,7 +100,7 @@ class ProjectService extends Service {
       )
       for (const i in params.doctor_id) {
         const projectDoctorInfo = await this.app.mysql.get(
-          `${app.config.tablePrefix}projectDoctor`,
+          `${app.config.tablePrefix}project_doctor`,
           { project_id: id, doctor_id: params.doctor_id[i] }
         )
         if (!isNaN(projectDoctorInfo)) {
@@ -109,8 +113,9 @@ class ProjectService extends Service {
       }
       const sql = `delete from ${
         app.config.tablePrefix
-      }projectDoctor where doctor_id not in (?)`
-      await this.app.mysql.query(sql, params.doctor_id)
+      }project_doctor where project_id = ? and  doctor_id not in (?)`
+      const paramsSql = [id, params.doctor_id]
+      await this.app.mysql.query(sql, paramsSql)
       const projectInfo = await this.app.mysql.get(
         `${app.config.tablePrefix}project`,
         { id }
@@ -138,7 +143,7 @@ class ProjectService extends Service {
     const { app } = this
     const ctx = this.ctx
     const result = await app.mysql.beginTransactionScope(async conn => {
-      const doctorObj = await app.mysql.get(
+      const projectObj = await app.mysql.get(
         `${app.config.tablePrefix}project`,
         {
           id
@@ -147,7 +152,7 @@ class ProjectService extends Service {
       await conn.delete(`${app.config.tablePrefix}project`, {
         id
       })
-      await ctx.service.content.destroy(doctorObj.content_id)
+      await ctx.service.content.destroy(projectObj.content_id)
       await ctx.service.projectDoctor.delete(id)
       return { success: true }
     }, ctx)
@@ -166,13 +171,15 @@ class ProjectService extends Service {
       app.config.tablePrefix
     }content_class c on c.class_id = b.class_id where a.id = ?`
     const result = await this.app.mysql.queryOne(sql, id)
-    const projectDoctorSql = `select a.doctor_id,b.doctor_name from ${
+    const projectDoctorSql = `select a.doctor_id from ${
       app.config.tablePrefix
-    }project_doctor a left join ${
-      app.config.tablePrefix
-    }doctor b on a.doctor_id = b.id where a.project_id = ?`
+    }project_doctor where a.project_id = ?`
     const results = await this.app.mysql.query(projectDoctorSql, id)
-    result.doctor_id = results
+    const arr = new Array(results.length)
+    for (const i in results) {
+      arr[i] = results[i].doctor_id
+    }
+    result.doctor_id = arr
     return result
   }
 }
