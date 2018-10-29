@@ -8,12 +8,12 @@ class ProjectController extends Controller {
     this.createProjectTransfer = {
       content: { type: 'string', require: true, allowEmpty: false },
 
-      doctor_id: { type: 'int', require: true, allowEmpty: false },
+      doctor_id: { type: 'array', require: true, allowEmpty: false },
       head_img: { type: 'string', require: true, allowEmpty: false },
-      recovery_time: { type: 'string', require: true, allowEmpty: false },
+      recover_time: { type: 'string', require: true, allowEmpty: false },
       result_img: { type: 'string', require: true, allowEmpty: false },
-      technology: { type: 'string', require: true, allowEmpty: false },
-      applicable_people: { type: 'string', require: true, allowEmpty: false }
+      advantange: { type: 'string', require: true, allowEmpty: false },
+      fit_people: { type: 'string', require: true, allowEmpty: false }
     }
   }
   async index() {
@@ -47,6 +47,20 @@ class ProjectController extends Controller {
       ctx.throw('404', 'id不存在')
     }
     const res = await ctx.service.project.destroy(id)
+    ctx.helper.success({ ctx, res })
+  }
+
+  async edit() {
+    const { ctx } = this
+    const { id } = ctx.params
+    if (!id) {
+      throw ('404', 'id不存在')
+    }
+    let res = await ctx.service.project.getProjectById(id)
+    res = Object.assign(res, {
+      build_plan: res.build_plan ? res.build_plan.split(',') : [],
+      time_list: JSON.parse(res.time_list)
+    })
     ctx.helper.success({ ctx, res })
   }
 }

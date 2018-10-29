@@ -31,8 +31,11 @@ class ContentService extends Service {
     const { app } = this
     const result = await app.mysql.insert(`${app.config.tablePrefix}content`, {
       content_id: params.content_id,
+      channel_id: params.channel_id,
+      class_id: params.class_id,
       title: params.title,
       sub_title: params.sub_title,
+      introduction: params.introduction,
       content: params.content,
       hits: params.hits,
       status: params.status
@@ -45,8 +48,11 @@ class ContentService extends Service {
       `${app.config.tablePrefix}content`,
       {
         content_id: params.content_id,
+        channel_id: params.channel_id,
+        class_id: params.class_id,
         title: params.title,
         sub_title: params.sub_title,
+        introduction: params.introduction,
         content: params.content,
         hits: params.hits,
         status: params.status

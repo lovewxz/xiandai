@@ -1,6 +1,7 @@
 'use strict'
 
 const Service = require('egg').Service
+const uuidV4 = require('uuid/v4')
 
 class ProjectService extends Service {
   async index(params) {
@@ -32,23 +33,35 @@ class ProjectService extends Service {
   async create(params) {
     const { app } = this
     const ctx = this.ctx
+    const uuid = uuidV4()
     const result = await app.mysql.beginTransactionScope(async conn => {
       // don't commit or rollback by yourself
       await conn.insert(`${app.config.tablePrefix}project`, {
-        content_id: params.content_id,
-        head_img: params.head_img
+        content_id: uuid,
+        head_img: params.head_img,
+        recover_time: params.recover_time,
+        result_img: params.result_img,
+        advantange: params.advantange,
+        fit_people: params.fit_people,
+        doctor_id: params.doctor_id.join()
       })
+
+      const contentClass = await this.app.mysql.get(
+        `${app.config.tablePrefix}content_class`,
+        { class_id: params.class_id }
+      )
       const contentObj = {
-        channel_id: params.channel_id,
+        content_id: uuid,
+        channel_id: contentClass.channel_id,
         class_id: params.class_id,
         title: params.title,
-        sub_title: params.sub_title,
-        introduction: params.introduction,
+        sub_title: '',
+        introduction: '',
         content: params.content,
-        hits: params.hits,
-        search_text: params.search_text
+        hits: 0,
+        status: params.status
       }
-      this.ctx.service.content.create(contentObj)
+      await this.ctx.service.content.create(contentObj)
       return { success: true }
     }, ctx)
     return result
@@ -61,8 +74,12 @@ class ProjectService extends Service {
       await conn.update(
         `${app.config.tablePrefix}project`,
         {
-          content_id: params.content_id,
-          head_img: params.head_img
+          head_img: params.head_img,
+          recover_time: params.recover_time,
+          result_img: params.result_img,
+          advantange: params.advantange,
+          fit_people: params.fit_people,
+          doctor_id: params.doctor_id.join()
         },
         {
           where: {
@@ -70,17 +87,25 @@ class ProjectService extends Service {
           }
         }
       )
+      const projectInfo = await this.app.mysql.get(
+        `${app.config.tablePrefix}project`,
+        { id: id }
+      )
+      const contentClass = await this.app.mysql.get(
+        `${app.config.tablePrefix}content_class`,
+        { class_id: params.class_id }
+      )
       const contentObj = {
-        channel_id: params.channel_id,
+        channel_id: contentClass.channel_id,
         class_id: params.class_id,
         title: params.title,
-        sub_title: params.sub_title,
-        introduction: params.introduction,
         content: params.content,
-        hits: params.hits,
-        search_text: params.search_text
+        status: params.status,
+        sub_title: '',
+        introduction: '',
+        hits: 0
       }
-      this.ctx.service.content.update(contentObj, params.id)
+      await this.ctx.service.content.update(contentObj, projectInfo.content_id)
       return { success: true }
     }, ctx)
     return result
@@ -89,11 +114,13 @@ class ProjectService extends Service {
     const { app } = this
     const ctx = this.ctx
     const result = await app.mysql.beginTransactionScope(async conn => {
-      // don't commit or rollback by yourself
+      const doctorObj = await app.mysql.get(`${app.config.tablePrefix}project`, {
+        id
+      })
       await conn.delete(`${app.config.tablePrefix}project`, {
         id
       })
-      this.ctx.service.content.destroy(id)
+      await ctx.service.content.destroy(doctorObj.content_id)
       return { success: true }
     }, ctx)
     return result

@@ -24,9 +24,13 @@ class DoctorService extends Service {
     const result = await app.mysql.beginTransactionScope(async conn => {
       const contentObj = {
         content_id: uuid,
+        channel_id: null,
+        class_id: null,
         title: params.title,
-        sub_title: params.sub_title,
+        sub_title: '',
+        introduction: '',
         content: params.content,
+        hits: 0,
         status: params.status
       }
       await ctx.service.content.create(contentObj)

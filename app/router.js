@@ -50,4 +50,6 @@ module.exports = app => {
   )
 
   router.resources('case', `${app.config.apiPrefix}/case`, controller.case)
+
+  router.resources('project', `${app.config.apiPrefix}/project`, controller.project)
 }
