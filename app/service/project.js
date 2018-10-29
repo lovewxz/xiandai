@@ -157,7 +157,7 @@ class ProjectService extends Service {
   async getProjectById(id) {
     const { app } = this
     const queryColumn =
-      'a.id id,a.content_id content_id,b.class_id class_id,c.class_name class_name,a.head_img head_img,a.result_img result_img,a.recover_time recover_time,a.advantange advantange,a.fit_people fit_people, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
+      'a.id id,a.content_id content_id,b.class_id class_id,c.class_name class_name,a.head_img head_img,a.result_img result_img,a.recover_time recover_time,a.advantange advantange,a.fit_people fit_people,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }project a left join ${
@@ -166,9 +166,9 @@ class ProjectService extends Service {
       app.config.tablePrefix
     }content_class c on c.class_id = b.class_id where a.id = ?`
     const result = await this.app.mysql.queryOne(sql, id)
-    const projectDoctorSql = `select a.doctor_id,a.doctor_name ${
+    const projectDoctorSql = `select a.doctor_id,b.doctor_name from ${
       app.config.tablePrefix
-    }projectDoctor a left join ${
+    }project_doctor a left join ${
       app.config.tablePrefix
     }doctor b on a.doctor_id = b.id where a.project_id = ?`
     const results = await this.app.mysql.query(projectDoctorSql, id)

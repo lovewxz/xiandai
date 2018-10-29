@@ -56,11 +56,11 @@ class ProjectController extends Controller {
     if (!id) {
       throw ('404', 'id不存在')
     }
-    let res = await ctx.service.project.getProjectById(id)
-    res = Object.assign(res, {
-      build_plan: res.build_plan ? res.build_plan.split(',') : [],
-      time_list: JSON.parse(res.time_list)
-    })
+    const res = await ctx.service.project.getProjectById(id)
+    // res = Object.assign(res, {
+    //   build_plan: res.build_plan ? res.build_plan.split(',') : [],
+    //   time_list: JSON.parse(res.time_list)
+    // })
     ctx.helper.success({ ctx, res })
   }
 }
