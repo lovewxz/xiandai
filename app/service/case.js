@@ -67,7 +67,7 @@ class CaseService extends Service {
         name: params.name,
         head_img: params.head_img,
         result_img: params.result_img,
-        build_plan: params.build_plan,
+        build_plan: params.build_plan.join(),
         status: params.status,
         article_json: JSON.stringify(params.time_list)
       },
