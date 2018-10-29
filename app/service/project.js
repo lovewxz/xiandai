@@ -171,9 +171,9 @@ class ProjectService extends Service {
       app.config.tablePrefix
     }content_class c on c.class_id = b.class_id where a.id = ?`
     const result = await this.app.mysql.queryOne(sql, id)
-    const projectDoctorSql = `select a.doctor_id from ${
+    const projectDoctorSql = `select doctor_id from ${
       app.config.tablePrefix
-    }project_doctor where a.project_id = ?`
+    }project_doctor where project_id = ?`
     const results = await this.app.mysql.query(projectDoctorSql, id)
     const arr = new Array(results.length)
     for (const i in results) {
