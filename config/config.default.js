@@ -2,6 +2,12 @@
 
 module.exports = appInfo => {
   const config = (exports = {
+    cluster: {
+      listen: {
+        port: 7001,
+        hostname: '0.0.0.0',
+      }
+    },
     mysql: {
       client: {
         // host
