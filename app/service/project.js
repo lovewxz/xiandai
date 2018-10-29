@@ -125,6 +125,21 @@ class ProjectService extends Service {
     }, ctx)
     return result
   }
+
+  async getProjectById(id) {
+    const { app } = this
+    const queryColumn =
+      'a.id id,a.content_id content_id,a.doctor_name doctor_name,a.goods_project goods_project,a.appointment_count appointment_count,a.up_hits up_hits,a.img_url img_url,a.list_url list_url, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
+    const sql = `select ${queryColumn} from ${
+      app.config.tablePrefix
+    }doctor a left join ${
+      app.config.tablePrefix
+    }content b on a.content_id = b.content_id left join ${
+      app.config.tablePrefix
+    }channel c on b.channel_id = c.channel_id where a.id = ?`
+    const result = await this.app.mysql.queryOne(sql, id)
+    return result
+  }
 }
 
 module.exports = ProjectService
