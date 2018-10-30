@@ -25,7 +25,7 @@ class IndexService extends Service {
       { setting_type: settingType }
     )
     const result = await app.mysql.beginTransactionScope(async conn => {
-      if (isNaN(homeInfo)) {
+      if (isNaN(homeInfo) || homeInfo == null) {
         await this.create(params)
       } else {
         await conn.update(
@@ -51,7 +51,7 @@ class IndexService extends Service {
       app.config.tablePrefix
     }config  where setting_type = ?`
     const result = await this.app.mysql.queryOne(sql, settingType)
-    return JSON.parse(result)
+    return JSON.parse(result.content)
   }
 }
 
