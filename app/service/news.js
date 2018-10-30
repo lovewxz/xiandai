@@ -114,4 +114,4 @@ class NewsService extends Service {
   }
 }
 
-module.exports = DoctorService
+module.exports = NewsService
