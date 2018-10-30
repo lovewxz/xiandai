@@ -5,7 +5,7 @@ module.exports = appInfo => {
     cluster: {
       listen: {
         port: 7001,
-        hostname: '0.0.0.0',
+        hostname: '0.0.0.0'
       }
     },
     mysql: {
@@ -41,7 +41,7 @@ module.exports = appInfo => {
     csrf: {
       enable: false
     },
-    domainWhiteList: ['http://localhost:9528']
+    domainWhiteList: ['http://47.100.124.146:9528']
   }
 
   config.cors = {
