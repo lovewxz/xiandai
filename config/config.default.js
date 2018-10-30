@@ -51,13 +51,19 @@ module.exports = appInfo => {
   config.jwt = {
     secret: 'xiandai',
     enable: true, // default is false
-    ignore: '/api/v1/userAccess'
+    ignore: ['/api/v1/userAccess', '/']
   }
 
   config.qiniu = {
     AK: 'Jrida2qZ_ul1FgR6BZhyrhNdreZcCk3XR_mLuXr2',
     SK: 'If-CH9GODwIzDYMXF3m5uaSGcvyGOPxCbCcAsKRT',
     bucket: 'mingyi'
+  }
+
+  config.view = {
+    mapping: {
+      '.ejs': 'ejs'
+    }
   }
 
   return config

@@ -1,0 +1,134 @@
+<footer>
+  <div class="index-tel">
+    <a href="tel:020-22220888" target="_blank">
+      <img src="/public/images/index_2_08.jpg" alt="">
+    </a>
+  </div>
+  <div class="index-pos">
+    <img src="/public/images/index_2_10.jpg" alt="">
+    <div class="pos-content">
+      <div class="content-time">
+        <span>
+          <img src="/public/images/icon_16.jpg" alt=""> </span>
+        <span>
+          <h2>诊断时间
+            <em>（无假日医院）</em>
+          </h2>
+          <p>9：00-18：00</p>
+        </span>
+      </div>
+      <div class="content-add">
+        <span>
+          <img src="/public/images/icon_19.jpg" alt=""> </span>
+        <span>
+          <h2>医院地址</h2>
+          <p>广州市天河区广园东路濂泉路口42号</p>
+        </span>
+      </div>
+      <div class="content-btn">
+        <a href="javascript:void(0);" onclick='openZoosUrl("chatwin")' target="_blank">
+          <img src="/public/images/zxyy.png" alt=""> </a>
+        <a href="javascript:void(0);" onclick='openZoosUrl("chatwin")' target="_blank">
+          <img src="/public/images/lylx.png" alt="">
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-fixed">
+    <ul>
+      <li>
+        <a href="javascript:void(0);" onclick='openZoosUrl("chatwin")' target="_blank">
+          <i>
+            <img src="/public/images/lw.png" alt="">
+          </i>
+          <p>最新优惠</p>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0);" onclick='openZoosUrl("chatwin")' target="_blank">
+          <i>
+            <img src="/public/images/icon_tel.png" alt="">
+          </i>
+          <p>热线电话</p>
+        </a>
+      </li>
+      <li class="bottom-zx">
+        <a href="javascript:void(0);" onclick='openZoosUrl("chatwin")' target="_blank">
+          <img src="/public/images/bottom-zx.png" alt="">
+        </a>
+        <div class="bottom-num animated infinite bounce">30</div>
+      </li>
+      <li>
+        <a href="javascript:void(0);" onclick='openZoosUrl("chatwin")' target="_blank">
+          <i>
+            <img src="/public/images/icon_zj.png" alt="">
+          </i>
+          <p>医院专家</p>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0);" onclick='openZoosUrl("chatwin")' target="_blank">
+          <i>
+            <img src="/public/images/icon_index.png" alt="">
+          </i>
+          <p>返回首页</p>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="mask" style="display:none">
+    <div class="swt-center">
+      <a href="javascript:void(0);" onclick='openZoosUrl("chatwin")' target="_blank">
+        <img src="/public/images/swt.jpg" alt="">
+      </a>
+      <div class="swt-close"></div>
+    </div>
+  </div>
+</footer>
+</body>
+<script src="//lib.baomitu.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="//lib.baomitu.com/iScroll/5.2.0/iscroll.min.js"></script>
+<script src="//lib.baomitu.com/Swiper/3.4.2/js/swiper.min.js"></script>
+<script src="//m.mei120.com/js/common.js"></script>
+<script language="javascript" src="http://swtmei.modern120.com/JS/LsJS.aspx?siteid=LNV66049960&float=1&lng=cn"></script>
+<script>
+$(function () {
+  new Swiper(".banner-containner", {
+    autoplay: 3e3,
+    loop: !0
+  }), new Swiper(".news-right", {
+    direction: "vertical",
+    loop: !0,
+    autoplay: 3e3,
+    speed: 800
+  }), new Swiper(".anli-wrapper", {
+    autoplay: 4e3,
+    loop: !0
+  }), new Swiper(".content-wrapper", {
+    pagination: ".swiper-pagination",
+    autoplay: 4e3,
+    loop: !0,
+    paginationClickable: !0,
+    paginationBulletRender: function (i, e, n) {
+      switch (e) {
+        case 0:
+          return '<li class="' + n + '">媒体报道</li>';
+        case 1:
+          return '<li class="' + n + '">医院环境</li>';
+        case 2:
+          return '<li class="' + n + '">荣誉实力</li>';
+        case 3:
+          return '<li class="' + n + '">安全体系</li>'
+      }
+    }
+  });
+  $(".riji-xm ul li").on("click", function () {
+    var i = $(this).index();
+    $(this).addClass("active").siblings().removeClass("active"), $(".riji-content-box").eq(i).show().siblings()
+      .hide()
+  }), $(".riji-xm ul li").eq(0).addClass("active").siblings().removeClass("active"), $(".riji-content-box").eq(
+    0).show().siblings().hide()
+})
+</script>
+
+</html>

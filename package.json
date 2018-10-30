@@ -11,6 +11,8 @@
     "egg-mysql": "^3.0.0",
     "egg-scripts": "^2.5.0",
     "egg-validate": "^2.0.1",
+    "egg-view": "^2.1.0",
+    "egg-view-ejs": "^2.0.0",
     "qiniu": "^7.2.1",
     "uuid": "^3.3.2"
   },
