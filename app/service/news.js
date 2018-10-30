@@ -6,6 +6,9 @@ const uuidV4 = require('uuid/v4')
 class NewsService extends Service {
   async index() {
     const { app } = this
+    params.pageNo = isNaN(params.pageNo) ? 1 : params.pageNo
+    params.pageSize = isNaN(params.pageSize) ? 100 : params.pageSize
+    const limitCount = (params.pageNo - 1) * params.pageSize
     const queryColumn =
       'a.id id,a.content_id content_id,a.importance importance, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text,b.status '
     const sql = `select ${queryColumn} from ${
@@ -14,9 +17,17 @@ class NewsService extends Service {
       app.config.tablePrefix
     }content b on a.content_id = b.content_id left join ${
       app.config.tablePrefix
-    }channel c on b.channel_id = c.channel_id`
-    const result = await this.app.mysql.query(sql)
-    return result
+    }channel c on b.channel_id = c.channel_id limit ?,?`
+    const paramsSql = [limitCount, parseInt(params.pageSize)]
+    const result = await this.app.mysql.query(sql,paramsSql)
+    const resultTotalCount = await this.app.mysql.queryOne(
+        `select count(1) totalCount from ${app.config.tablePrefix}news`
+      )
+      const resultObj = {
+        detail: result,
+        summary: resultTotalCount
+      }
+      return resultObj
   }
   async create(params) {
     const { app, ctx } = this

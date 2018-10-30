@@ -6,6 +6,9 @@ const uuidV4 = require('uuid/v4')
 class DoctorService extends Service {
   async index() {
     const { app } = this
+    params.pageNo = isNaN(params.pageNo) ? 1 : params.pageNo
+    params.pageSize = isNaN(params.pageSize) ? 100 : params.pageSize
+    const limitCount = (params.pageNo - 1) * params.pageSize
     const queryColumn =
       'a.id id,a.content_id content_id,a.doctor_name doctor_name,a.goods_project goods_project,a.appointment_count appointment_count,a.up_hits up_hits,a.img_url img_url,a.list_url list_url, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
     const sql = `select ${queryColumn} from ${
@@ -14,9 +17,17 @@ class DoctorService extends Service {
       app.config.tablePrefix
     }content b on a.content_id = b.content_id left join ${
       app.config.tablePrefix
-    }channel c on b.channel_id = c.channel_id`
-    const result = await this.app.mysql.query(sql)
-    return result
+    }channel c on b.channel_id = c.channel_id limit ?,?`
+    const paramsSql = [limitCount, parseInt(params.pageSize)]
+    const result = await this.app.mysql.query(sql,paramsSql)
+    const resultTotalCount = await this.app.mysql.queryOne(
+        `select count(1) totalCount from ${app.config.tablePrefix}doctor`
+      )
+      const resultObj = {
+        detail: result,
+        summary: resultTotalCount
+      }
+      return resultObj
   }
   async create(params) {
     const { app, ctx } = this
