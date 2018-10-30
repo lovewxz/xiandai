@@ -51,9 +51,13 @@ module.exports = app => {
 
   router.resources('case', `${app.config.apiPrefix}/case`, controller.case)
 
-  router.resources('project', `${app.config.apiPrefix}/project`, controller.project)
+  router.resources(
+    'project',
+    `${app.config.apiPrefix}/project`,
+    controller.project
+  )
 
   router.resources('news', `${app.config.apiPrefix}/news`, controller.news)
 
-  router.resources('home', `${app.config.apiPrefix}/home`, controller.home)
+  router.resources('index', `${app.config.apiPrefix}/index`, controller.index)
 }

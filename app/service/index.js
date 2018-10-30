@@ -2,11 +2,10 @@
 
 const Service = require('egg').Service
 
-class HomeService extends Service {
+class IndexService extends Service {
   async create(params) {
     const { app, ctx } = this
     const result = await app.mysql.beginTransactionScope(async conn => {
-
       // don't commit or rollback by yourself
       await conn.insert(`${app.config.tablePrefix}config`, {
         setting_type: 10,
@@ -21,27 +20,33 @@ class HomeService extends Service {
   async update(params, settingType) {
     const { app } = this
     const ctx = this.ctx
+    const homeInfo = await this.app.mysql.get(
+      `${app.config.tablePrefix}config`,
+      { setting_type: settingType }
+    )
     const result = await app.mysql.beginTransactionScope(async conn => {
-      // don't commit or rollback by yourself
-      await conn.update(
-        `${app.config.tablePrefix}config`,
-        {
+      if (isNaN(homeInfo)) {
+        await this.create(params)
+      } else {
+        await conn.update(
+          `${app.config.tablePrefix}config`,
+          {
             content: JSON.stringify(params)
-        },
-        {
-          where: {
-            setting_type: settingType
+          },
+          {
+            where: {
+              setting_type: settingType
+            }
           }
-        }
-      )
+        )
+      }
       return { success: true }
     }, ctx)
     return result
   }
-  async getHomeById(settingType) {
+  async getIndexById(settingType) {
     const { app } = this
-    const queryColumn =
-      'content content'
+    const queryColumn = 'content content'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }config  where setting_type = ?`
@@ -50,4 +55,4 @@ class HomeService extends Service {
   }
 }
 
-module.exports = HomeService
+module.exports = IndexService
