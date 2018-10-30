@@ -103,7 +103,7 @@ class ProjectService extends Service {
           `${app.config.tablePrefix}project_doctor`,
           { project_id: id, doctor_id: params.doctor_id[i] }
         )
-        if (!isNaN(projectDoctorInfo)) {
+        if (projectDoctorInfo == null) {
           const projectDoctorObj = {
             project_id: id,
             doctor_id: params.doctor_id[i]

@@ -25,7 +25,7 @@ class IndexService extends Service {
       { setting_type: settingType }
     )
     const result = await app.mysql.beginTransactionScope(async conn => {
-      if (isNaN(homeInfo) || homeInfo == null) {
+      if (homeInfo == null) {
         await this.create(params)
       } else {
         await conn.update(

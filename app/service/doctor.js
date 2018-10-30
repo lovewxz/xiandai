@@ -19,15 +19,15 @@ class DoctorService extends Service {
       app.config.tablePrefix
     }channel c on b.channel_id = c.channel_id limit ?,?`
     const paramsSql = [limitCount, parseInt(params.pageSize)]
-    const result = await this.app.mysql.query(sql,paramsSql)
+    const result = await this.app.mysql.query(sql, paramsSql)
     const resultTotalCount = await this.app.mysql.queryOne(
-        `select count(1) totalCount from ${app.config.tablePrefix}doctor`
-      )
-      const resultObj = {
-        detail: result,
-        summary: resultTotalCount
-      }
-      return resultObj
+      `select count(1) totalCount from ${app.config.tablePrefix}doctor`
+    )
+    const resultObj = {
+      detail: result,
+      summary: resultTotalCount
+    }
+    return resultObj
   }
   async create(params) {
     const { app, ctx } = this
@@ -71,8 +71,7 @@ class DoctorService extends Service {
         `${app.config.tablePrefix}doctor`,
         {
           doctor_name: params.doctor_name,
-          title: params.title,
-          goods_project: params.goods_project,
+          goods_project: params.goods_project.join(','),
           appointment_count: params.appointment_count,
           up_hits: params.up_hits,
           img_url: params.img_url,
@@ -128,7 +127,7 @@ class DoctorService extends Service {
   async getDoctorById(id) {
     const { app } = this
     const queryColumn =
-      'a.id id,a.content_id content_id,a.doctor_name doctor_name,a.goods_project goods_project,a.appointment_count appointment_count,a.up_hits up_hits,a.img_url img_url,a.list_url list_url, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
+      'a.id id,a.profession profession,a.content_id content_id,a.doctor_name doctor_name,a.goods_project goods_project,a.appointment_count appointment_count,a.up_hits up_hits,a.img_url img_url,a.list_url list_url, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }doctor a left join ${
