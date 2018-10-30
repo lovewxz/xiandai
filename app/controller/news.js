@@ -7,7 +7,7 @@ class NewsController extends Controller {
     super(ctx)
     this.createNewsTransfer = {
       content: { type: 'string', require: false, allowEmpty: true },
-      Importance: { type: 'int', require: true, allowEmpty: false },
+      importance: { type: 'int', require: true, allowEmpty: false },
       title: { type: 'string', require: true, allowEmpty: false },
       status: { type: 'int', require: true, allowEmpty: true }
     }

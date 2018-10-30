@@ -7,7 +7,7 @@ class NewsService extends Service {
   async index() {
     const { app } = this
     const queryColumn =
-      'a.id id,a.content_id content_id,a.Importance Importance, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text,b.status '
+      'a.id id,a.content_id content_id,a.importance importance, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text,b.status '
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }news a left join ${
@@ -38,7 +38,7 @@ class NewsService extends Service {
       // don't commit or rollback by yourself
       await conn.insert(`${app.config.tablePrefix}news`, {
         content_id: uuid,
-        Importance: params.Importance
+        importance: params.importance
       })
 
       return { success: true }
@@ -53,7 +53,7 @@ class NewsService extends Service {
       await conn.update(
         `${app.config.tablePrefix}news`,
         {
-            Importance: params.Importance
+            importance: params.importance
         },
         {
           where: {
@@ -101,7 +101,7 @@ class NewsService extends Service {
   async getDoctorById(id) {
     const { app } = this
     const queryColumn =
-      'a.id id,a.content_id content_id,a.Importance Importance, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
+      'a.id id,a.content_id content_id,a.importance importance, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }news a left join ${
