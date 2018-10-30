@@ -20,7 +20,8 @@ class DoctorController extends Controller {
   }
   async index() {
     const { ctx } = this
-    const res = await ctx.service.doctor.index()
+    const params = ctx.request.query || {}
+    const res = await ctx.service.doctor.index(params)
     ctx.helper.success({ ctx, res })
   }
   async create() {

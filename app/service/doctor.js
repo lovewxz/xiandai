@@ -4,7 +4,7 @@ const Service = require('egg').Service
 const uuidV4 = require('uuid/v4')
 
 class DoctorService extends Service {
-  async index() {
+  async index(params) {
     const { app } = this
     params.pageNo = isNaN(params.pageNo) ? 1 : params.pageNo
     params.pageSize = isNaN(params.pageSize) ? 100 : params.pageSize

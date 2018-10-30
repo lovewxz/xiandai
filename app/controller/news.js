@@ -14,7 +14,8 @@ class NewsController extends Controller {
   }
   async index() {
     const { ctx } = this
-    const res = await ctx.service.news.index()
+    const params = ctx.request.query || {}
+    const res = await ctx.service.news.index(params)
     ctx.helper.success({ ctx, res })
   }
   async create() {
