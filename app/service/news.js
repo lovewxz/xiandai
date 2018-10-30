@@ -10,7 +10,7 @@ class NewsService extends Service {
       'a.id id,a.content_id content_id,a.Importance Importance, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text,b.status '
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
-    }doctor a left join ${
+    }news a left join ${
       app.config.tablePrefix
     }content b on a.content_id = b.content_id left join ${
       app.config.tablePrefix
@@ -104,7 +104,7 @@ class NewsService extends Service {
       'a.id id,a.content_id content_id,a.Importance Importance, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
-    }doctor a left join ${
+    }news a left join ${
       app.config.tablePrefix
     }content b on a.content_id = b.content_id left join ${
       app.config.tablePrefix
