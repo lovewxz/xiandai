@@ -109,7 +109,7 @@ class NewsService extends Service {
     }, ctx)
     return result
   }
-  async getDoctorById(id) {
+  async getNewsById(id) {
     const { app } = this
     const queryColumn =
       'a.id id,a.content_id content_id,a.importance importance, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
