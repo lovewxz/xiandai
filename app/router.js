@@ -6,6 +6,9 @@
 module.exports = app => {
   const { router, controller } = app
   router.get('/', controller.fe.home.index)
+  router.get('/front/doctor', controller.fe.doctor.index)
+  router.get('/front/doctor/2131', controller.fe.doctor.edit)
+
   router.post(
     `${app.config.apiPrefix}/userAccess/login`,
     controller.userAccess.login

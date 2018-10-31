@@ -51,7 +51,7 @@ module.exports = appInfo => {
   config.jwt = {
     secret: 'xiandai',
     enable: true, // default is false
-    ignore: ['/api/v1/userAccess', '/']
+    ignore: ['/api/v1/userAccess', '/', '/front']
   }
 
   config.qiniu = {

@@ -1,3 +1,43 @@
 <%- include('header') -%>
-  
+<div class="doctor-wrapper">
+  <ul>
+    <% detail.forEach(function(item) { -%>
+      <li class="doctor-item">
+          <div class="doc-top">
+            <div class="doc-pic">
+              <img src="//image.0755mingyi.com/<%= item.img_url %>" alt="">
+            </div>
+            <div class="doc-detail">
+              <h2><%= item.doctor_name %></h2>
+              <p class="job"><%= item.title %></p>
+              <div class="good_project">
+                <span class="bold">擅长项目:</span>
+                <span><%= item.goods_project %></span>
+              </div>
+              <div class="doc-btn">
+                <a href="javascript:void(0);" onclick="openZoosUrl('chatwin');" target="_blank">
+                  <div class="doc-zx">
+                    立即咨询
+                  </div>
+                </a>
+                <div class="doc-see">
+                  查看详情
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="doc-bottom">
+            <div class="comment-doc">
+              <span class="iconfont icon-comment"></span>
+              <span class="doc-text">预约:<%= item.appointment_count %></span>
+            </div>
+            <div class="zan-doc">
+              <span class="iconfont icon-zan"></span>
+              <span class="doc-text">点赞:<%= item.up_hits %></span>
+            </div>
+          </div>
+      </li>
+    <% }) -%>
+  </ul>
+</div>
 <%- include('footer') -%>
