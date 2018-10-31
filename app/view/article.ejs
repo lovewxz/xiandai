@@ -1,12 +1,12 @@
 <%- include('header') -%>
 <div class="article-detail">
-  <h1 class="article-title">文章标题</h1>
+  <h1 class="article-title"><%= title %></h1>
   <p class="article-info">
     <span class="article-time">更新时间: 2018-10-03</span>
     <span class="article-source">来源: 广州现代医疗美容医院</span>
   </p>
   <div class="article-content">
-      我对自己的外貌很重视，身边的姐妹们也都是颜党，聚在一起讨论的无非就是谁谁变得越来越漂亮了，那谁又新买了一个包，巨好看，哪款口红出了新色……对我们来说，丑是一件很尴尬的事，我们每天都在研究怎么把自己变得更加漂亮。
+      <%- content %>
   </div>
 </div>
 <%- include('footer') -%>

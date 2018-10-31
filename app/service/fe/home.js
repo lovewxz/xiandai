@@ -16,16 +16,38 @@ class HomeService extends Service {
       app.config.tablePrefix
     }case c on c.class_id = b.class_id order by class_id`
     const result = await this.app.mysql.query(sql)
-    return result
+
+    // 组合数据
+    const arr = []
+    result.forEach(content => {
+      const index = arr.findIndex(item => item.class_id === content.class_id)
+      const params = {
+        head_img: content.head_img,
+        introduction: content.introduction,
+        build_plan: content.build_plan,
+        name: content.name,
+        result_img: content.result_img
+      }
+      if (index > -1) {
+        if (params.name) {
+          arr[index].list.push(params)
+        }
+      } else {
+        arr.push({
+          class_id: content.class_id,
+          class_name: content.class_name,
+          list: params.name ? [params] : []
+        })
+      }
+    })
+    return arr
   }
 
   async projectIndex() {
     const { app } = this
-    const sql = `select a.class_id ,a.class_name,d. head_img,c.title
-    from (SELECT class_id,class_name FROM ${
+    const sql = `select a.class_id ,a.class_name,d. head_img,c.title from (SELECT class_id,class_name FROM ${
       app.config.tablePrefix
-    }content_class where parent_id = 14) a 
-    left join ${
+    }content_class where parent_id = 14) a left join ${
       app.config.tablePrefix
     }content_class b on FIND_IN_SET(b.class_id,queryChildrenTypeInfo(a.class_id)) 
     left join ${app.config.tablePrefix}content c on c.class_id = b.class_id
@@ -33,7 +55,27 @@ class HomeService extends Service {
     where b.class_id in (a.class_id)  or c.class_id is not null
     order by class_id`
     const result = await this.app.mysql.query(sql)
-    return result
+
+    const projectInfo = []
+    result.forEach(content => {
+      const index = projectInfo.findIndex(
+        item => item.class_id === content.class_id
+      )
+      const params = {
+        title: content.title,
+        head_img: content.head_img
+      }
+      if (index > -1) {
+        projectInfo[index].list.push(params)
+      } else {
+        projectInfo.push({
+          class_id: content.class_id,
+          class_name: content.class_name,
+          list: params.title ? [params] : []
+        })
+      }
+    })
+    return projectInfo
   }
 }
 

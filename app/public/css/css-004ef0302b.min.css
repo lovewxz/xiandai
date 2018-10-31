@@ -2260,7 +2260,7 @@ footer .bottom-fixed ul li p {
 
 .article-title {
   font-size: 0.5rem;
-  color: #f95680;
+  color: #000;
   line-height: 0.5625rem;
   text-align: center;
 }
@@ -2293,4 +2293,35 @@ footer .bottom-fixed ul li p {
   max-width: 9rem !important;
   width: auto;
   display: inline-block;
+}
+
+.project-wrapper {
+  padding: 0 0.4rem;
+}
+.project-wrapper .project-title {
+  font-size: 0.51rem;
+  font-weight: bolder;
+  text-align: center;
+}
+.project-wrapper .project-custom-title {
+  height: 0.8rem;
+  line-height: 0.8rem;
+  font-size: 0;
+  border-bottom: 1px solid #d1d1d1;
+}
+.project-wrapper .project-custom-title span {
+  font-size: 0.4rem;
+  margin-left: 0.11rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+.project-wrapper .project-custom-title span.iconfont {
+  font-size: 0.5rem;
+  margin-left: 0.11rem;
+}
+.project-wrapper .project-content {
+  margin: 0.27rem 0;
+  font-size: 0.24rem;
+  color: #666;
+  line-height: 0.4rem;
 }
