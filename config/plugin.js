@@ -23,11 +23,6 @@ exports.cors = {
   package: 'egg-cors'
 }
 
-exports.view = {
-  enable: true,
-  package: 'egg-view'
-}
-
 exports.ejs = {
   enable: true,
   package: 'egg-view-ejs'
