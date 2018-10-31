@@ -1,6 +1,7 @@
 'use strict'
 
 const Service = require('egg').Service
+const DateUtils = require('../utils/dateUtils')
 
 class ContentService extends Service {
   async queryByChannelId(channelId) {
@@ -44,9 +45,11 @@ class ContentService extends Service {
   }
   async update(params, id) {
     const { app } = this
+    const dateUtils = new DateUtils()
     const result = await app.mysql.update(
       `${app.config.tablePrefix}content`,
       {
+        updated_time: dateUtils.getNowFormatDate(),
         content_id: params.content_id,
         channel_id: params.channel_id,
         class_id: params.class_id,

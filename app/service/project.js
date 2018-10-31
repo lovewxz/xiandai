@@ -10,7 +10,7 @@ class ProjectService extends Service {
     params.pageSize = isNaN(params.pageSize) ? 100 : params.pageSize
     const limitCount = (params.pageNo - 1) * params.pageSize
     const queryColumn =
-      'a.id id,a.head_img head_img,a.result_img result_img,a.recover_time recover_time,a.advantange advantange,a.fit_people fit_people,c.channel_name channel_name,d.class_name, b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
+      'a.id id,a.head_img head_img,a.result_img result_img,a.recover_time recover_time,a.advantange advantange,a.fit_people fit_people,c.channel_name channel_name,d.class_name, b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text,b.updated_time updated_time'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }project a left join ${
@@ -162,7 +162,7 @@ class ProjectService extends Service {
   async getProjectById(id) {
     const { app } = this
     const queryColumn =
-      'a.id id,a.content_id content_id,b.class_id class_id,c.class_name class_name,a.head_img head_img,a.result_img result_img,a.recover_time recover_time,a.advantange advantange,a.fit_people fit_people,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
+      'a.id id,a.content_id content_id,b.class_id class_id,c.class_name class_name,a.head_img head_img,a.result_img result_img,a.recover_time recover_time,a.advantange advantange,a.fit_people fit_people,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text,b.updated_time updated_time'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }project a left join ${

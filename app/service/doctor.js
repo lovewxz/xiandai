@@ -10,7 +10,7 @@ class DoctorService extends Service {
     params.pageSize = isNaN(params.pageSize) ? 100 : params.pageSize
     const limitCount = (params.pageNo - 1) * params.pageSize
     const queryColumn =
-      'a.id id,a.content_id content_id,a.doctor_name doctor_name,a.goods_project goods_project,a.appointment_count appointment_count,a.up_hits up_hits,a.img_url img_url,a.list_url list_url, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
+      'a.id id,a.content_id content_id,a.doctor_name doctor_name,a.goods_project goods_project,a.appointment_count appointment_count,a.up_hits up_hits,a.img_url img_url,a.list_url list_url, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text,b.updated_time updated_time'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }doctor a left join ${
@@ -84,25 +84,23 @@ class DoctorService extends Service {
           }
         }
       )
-      await conn.update(
-        `${app.config.tablePrefix}content`,
-        {
-          channel_id: params.channel_id,
-          class_id: params.class_id,
-          title: params.title,
-          sub_title: params.sub_title,
-          introduction: params.introduction,
-          content: params.content,
-          hits: params.hits,
-          search_text: params.search_text,
-          status: params.status
-        },
-        {
-          where: {
-            content_id: params.content_id
-          }
-        }
+
+      const doctorInfo = await this.app.mysql.get(
+        `${app.config.tablePrefix}doctor`,
+        { id }
       )
+
+      const contentObj = {
+        channel_id: params.channel_id,
+        class_id: params.class_id,
+        title: params.title,
+        sub_title: '',
+        introduction: '',
+        content: params.content,
+        hits: 0,
+        status: params.status
+      }
+      await ctx.service.content.update(contentObj, doctorInfo.content_id)
       return { success: true }
     }, ctx)
     return result
@@ -127,7 +125,7 @@ class DoctorService extends Service {
   async getDoctorById(id) {
     const { app } = this
     const queryColumn =
-      'a.id id,a.profession profession,a.content_id content_id,a.doctor_name doctor_name,a.goods_project goods_project,a.appointment_count appointment_count,a.up_hits up_hits,a.img_url img_url,a.list_url list_url, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text'
+      'a.id id,a.profession profession,a.content_id content_id,a.doctor_name doctor_name,a.goods_project goods_project,a.appointment_count appointment_count,a.up_hits up_hits,a.img_url img_url,a.list_url list_url, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text,b.updated_time updated_time'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }doctor a left join ${
