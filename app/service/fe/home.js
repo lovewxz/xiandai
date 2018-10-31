@@ -18,6 +18,23 @@ class HomeService extends Service {
     const result = await this.app.mysql.query(sql)
     return result
   }
+
+  async projectIndex() {
+    const { app } = this
+    const sql = `select a.class_id ,a.class_name,d. head_img,c.title
+    from (SELECT class_id,class_name FROM ${
+      app.config.tablePrefix
+    }content_class where parent_id = 14) a 
+    left join ${
+      app.config.tablePrefix
+    }content_class b on FIND_IN_SET(b.class_id,queryChildrenTypeInfo(a.class_id)) 
+    left join ${app.config.tablePrefix}content c on c.class_id = b.class_id
+    left join ${app.config.tablePrefix}project d on d.content_id = c.content_id 
+    where b.class_id in (a.class_id)  or c.class_id is not null
+    order by class_id`
+    const result = await this.app.mysql.query(sql)
+    return result
+  }
 }
 
 module.exports = HomeService
