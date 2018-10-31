@@ -10,7 +10,7 @@ class NewsService extends Service {
     params.pageSize = isNaN(params.pageSize) ? 100 : params.pageSize
     const limitCount = (params.pageNo - 1) * params.pageSize
     const queryColumn =
-      'a.id id,a.content_id content_id,a.importance importance, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text,b.status '
+      'a.id id,a.content_id content_id,a.img_url img_url,a.updated_time updated_time, a.importance importance, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text,b.status '
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }news a left join ${
