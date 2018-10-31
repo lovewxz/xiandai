@@ -2,7 +2,7 @@
 <div class="main-body">
   <div class="banner-containner">
     <div class="swiper-wrapper">
-      <% banner.forEach(function(item) { -%>
+      <% settings.banner.forEach(function(item) { -%>
       <div class="swiper-slide">
         <a href="<%= item.link %>" target="_blank">
           <img src="//image.0755mingyi.com/<%= item.pic %>" alt="">
@@ -13,7 +13,7 @@
   </div>
   <div class="index-xm">
     <ul>
-        <% icon.forEach(function(item) { -%>
+        <% settings.icon.forEach(function(item) { -%>
           <li>
             <a href="<%= item.link %>">
               <img src="//image.0755mingyi.com/<%= item.pic %>" alt="">
@@ -48,7 +48,7 @@
       <img src="public/images/jx.png" alt="">
     </div>
     <ul>
-        <% sale.forEach(function(item) { -%>
+        <% settings.sale.forEach(function(item) { -%>
           <li>
               <img src="//image.0755mingyi.com/<%=item.pic %>" alt="">
               <div class="sale-content">
@@ -74,7 +74,7 @@
     </div>
     <div class="anli-wrapper">
       <div class="swiper-wrapper">
-        <% beauty_share.forEach(function(item) { -%>
+        <% settings.beauty_share.forEach(function(item) { -%>
           <div class="swiper-slide">
             <a href="<%= item.link %>" target="_blank">
               <img src="//image.0755mingyi.com/<%= item.pic %>" alt="">
@@ -88,221 +88,44 @@
     <div class="riji-top-wrapper">
       <div class="riji-title">
         <span>
-          <img src="images/riji_03.png" alt=""> </span>
+          <img src="public/images/riji_03.png" alt=""> </span>
         <span class="riji-text">精选日记</span>
       </div>
       <div class="riji-xm">
         <ul>
-          <li>翘鼻</li>
-          <li>美眼</li>
-          <li>美胸</li>
-          <li class="active">自体脂肪</li>
-          <li>纹绣</li>
-          <li>美肤</li>
+          <% classContent.forEach(function(item, index) { -%>
+            <li><%= item.class_name %></li>
+          <% }) -%>
         </ul>
       </div>
     </div>
     <div class="riji-content-wrapper">
+      <% classContent.forEach(function(content, index) { -%>
       <div class="riji-content-box">
         <ul>
+          <% content.list.forEach(function(item) { -%>
           <li class="riji-item">
             <div class="riji-content">
               <div class="riji-content-title">
                 <span>
-                  <img src="images/lb_2_03.jpg" alt=""> </span>
+                  <img src="//image.0755mingyi.com/<%= item.head_img %>" alt=""> </span>
                 <span>
-                  <h2>易女士</h2>
-                  <p class="content-text">韩式隆鼻，假体下巴</p>
+                  <h2><%= item.name %></h2>
+                  <p class="content-text"><%= item.bulid_plan %></p>
                 </span>
               </div>
               <div class="riji-detail">
-                <p>有人说，不打扮之前，你永远不知道自己到底有多美。但工作和家庭兼顾的忙碌让我无暇自顾，我已经忘了自己有多久没好好的逛一次街.....</p>
+                <p><%= item.introduction %></p>
               </div>
               <div class="riji-pic">
-                <img src="images/lb_2_07.jpg" alt="">
+                <img src="//image.0755mingyi.com/<%= item.result_img %>" alt="">
               </div>
             </div>
           </li>
-          <li class="riji-item">
-            <div class="riji-content">
-              <div class="riji-content-title">
-                <span>
-                  <img src="images/lb_2_11.jpg" alt=""> </span>
-                <span>
-                  <h2>张某某</h2>
-                  <p class="content-text">假体隆鼻</p>
-                </span>
-              </div>
-              <div class="riji-detail">
-                <p>我是一名网红，因为平时都要直播，所以面对粉丝的时间相对比较多的虽然浓妆艳抹之后还算的上是漂亮。但是，我对我的鼻子很不满意啊</p>
-              </div>
-              <div class="riji-pic">
-                <img src="images/lb_2_14.jpg" alt="">
-              </div>
-            </div>
-          </li>
+          <% }) -%>
         </ul>
       </div>
-      <div class="riji-content-box">
-        <ul>
-          <li class="riji-item">
-            <div class="riji-content">
-              <div class="riji-content-title">
-                <span>
-                  <img src="images/syp_2_03.jpg" alt=""> </span>
-                <span>
-                  <h2>李霞</h2>
-                  <p class="content-text">韩式三点双眼皮</p>
-                </span>
-              </div>
-              <div class="riji-detail">
-                <p>这位求美者的眼睛不对称，而且是内双，所以看起来总是双眼无神，做完双眼皮之后，她的眼睛立刻就靓丽起来了</p>
-              </div>
-              <div class="riji-pic">
-                <img src="images/syp_2_07.jpg" alt="">
-              </div>
-            </div>
-          </li>
-          <li class="riji-item">
-            <div class="riji-content">
-              <div class="riji-content-title">
-                <span>
-                  <img src="images/syp_2_11.jpg" alt=""> </span>
-                <span>
-                  <h2>李红</h2>
-                  <p class="content-text">韩式三点双眼皮</p>
-                </span>
-              </div>
-              <div class="riji-detail">
-                <p>考虑了很久，也犹豫了很久，今天终于下定决心要去做这个双眼皮了。内心是激动的，但是也很忐忑。我这个眼睛已经让我惆怅了很多年......</p>
-              </div>
-              <div class="riji-pic">
-                <img src="images/syp_2_14.jpg" alt="">
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="riji-content-box">
-        <ul>
-          <li class="riji-item">
-            <div class="riji-content">
-              <div class="riji-content-title">
-                <span>
-                  <img src="images/fx_2_11.jpg" alt=""> </span>
-                <span>
-                  <h2>徐女士</h2>
-                  <p class="content-text">自体脂肪丰胸</p>
-                </span>
-              </div>
-              <div class="riji-detail">
-                <p>因为身为一个女人，生完孩子胸部缩水下垂的严重，这种时候是很没有自信的，毕竟哪个女人不注重身材呢？看着自己的胸这么小....</p>
-              </div>
-              <div class="riji-pic">
-                <img src="images/fx_2_14.jpg" alt="">
-              </div>
-            </div>
-          </li>
-          <li class="riji-item">
-            <div class="riji-content">
-              <div class="riji-content-title">
-                <span>
-                  <img src="images/fx_2_03.jpg" alt=""> </span>
-                <span>
-                  <h2>罗紫昕</h2>
-                  <p class="content-text">自体脂肪丰胸</p>
-                </span>
-              </div>
-              <div class="riji-detail">
-                <p>我叫罗紫昕，是名长腿模特，可是美中不足的是胸还是不够大，大家都知道，模特行业竞争激烈，上身的尺度很重要。</p>
-              </div>
-              <div class="riji-pic">
-                <img src="images/fx_2_07.jpg" alt="">
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="riji-content-box">
-        <ul>
-          <li class="riji-item">
-            <div class="riji-content">
-              <div class="riji-content-title">
-                <span>
-                  <img src="images/ztzf_2_03.jpg" alt=""> </span>
-                <span>
-                  <h2>罗紫昕</h2>
-                  <p class="content-text">自体脂肪丰胸</p>
-                </span>
-              </div>
-              <div class="riji-detail">
-                <p>我叫罗紫昕，是名长腿模特，可是美中不足的是胸还是不够大，大家都知道，模特行业竞争激烈，上身的尺度很重要</p>
-              </div>
-              <div class="riji-pic">
-                <img src="images/ztzf_2_07.jpg" alt="">
-              </div>
-            </div>
-          </li>
-          <li class="riji-item">
-            <div class="riji-content">
-              <div class="riji-content-title">
-                <span>
-                  <img src="images/ztzf_2_11.jpg" alt=""> </span>
-                <span>
-                  <h2>吴亚雪</h2>
-                  <p class="content-text">自体脂肪丰全面部</p>
-                </span>
-              </div>
-              <div class="riji-detail">
-                <p>我是一名主播，说白了就是靠脸吃饭，这一点都不假，呵呵！！又是一个追求完美的处女座宝宝，尽管我的基础还行，但总是觉得过于普通</p>
-              </div>
-              <div class="riji-pic">
-                <img src="images/ztzf_2_14.jpg" alt="">
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="riji-content-box">
-        <ul>
-          <li class="riji-item">
-            <div class="riji-content">
-              <div class="riji-content-title">
-                <span>
-                  <img src="images/wx_2_03.jpg" alt=""> </span>
-                <span>
-                  <h2>谭爱丽</h2>
-                  <p class="content-text">半永久眉眼唇</p>
-                </span>
-              </div>
-              <div class="riji-detail">
-                <p>在广州现代做的眉毛和美瞳线～很自然很好看！特别适合我这种懒人，终于不用每天早起化妆了，起码节省了二十分钟...</p>
-              </div>
-              <div class="riji-pic">
-                <img src="images/wx_2_07.jpg" alt="">
-              </div>
-            </div>
-          </li>
-          <li class="riji-item">
-            <div class="riji-content">
-              <div class="riji-content-title">
-                <span>
-                  <img src="images/wx_2_11.jpg" alt=""> </span>
-                <span>
-                  <h2>徐小姐</h2>
-                  <p class="content-text">半永久纹眉</p>
-                </span>
-              </div>
-              <div class="riji-detail">
-                <p>一直想做半永久，考察了好多家，犹豫了好久最后决定在现代医学美容搞定。果然！没有让本呆失望~吼吼看啊~</p>
-              </div>
-              <div class="riji-pic">
-                <img src="images/wx_2_14.jpg" alt="">
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <% }) -%>
     </div>
     <a href="javascript:void(0);" onclick='openZoosUrl("chatwin")' target="_blank">
       <div class="anli-zx">进入现代案例中心>></div>
