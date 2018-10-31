@@ -6,57 +6,44 @@
       <span>对比案例:</span>
     </div>
     <div class="project-compare-photo project-content">
-      <img src="images/lb_2_07.jpg" alt="">
+      <img src="//image.0755mingyi.com/<%= projectInfo.result_img %>" alt="">
     </div>
     <div class="project-custom-title">
       <span class="iconfont icon-menu"></span>
       <span>项目介绍:</span>
     </div>
     <div class="project-introduction project-content">
-      <p>上睑下垂指提上睑肌（动眼神经支配）和Müller平滑肌（颈交感神经支配）的功能不全
-          或丧失，以致上睑呈现部分或全部下垂，轻者遮盖部分瞳孔，严重者瞳孔全部被遮盖，
-          不但有碍美观和影响视力，先天性者还可造成重度弱视。广州现代医学美容采用微创治
-          疗伤口非常隐蔽、细小，成型自然仿若天生，术后可以使脸形显得十分秀气！</p>
+      <%- projectInfo.content %>
     </div>
     <div class="project-custom-title">
       <span class="iconfont icon-my"></span>
       <span>适用人群:</span>
     </div>
     <div class="project-people project-content">
-      <p>1、 先天性上睑下垂，为先天发育畸形，多为双侧，可为常染色体显性或隐性遗传;</p>
-      <p>1、 先天性上睑下垂，为先天发育畸形，多为双侧，可为常染色体显性或隐性遗传;</p>
-      <p>1、 先天性上睑下垂，为先天发育畸形，多为双侧，可为常染色体显性或隐性遗传;</p>
-      <p>1、 先天性上睑下垂，为先天发育畸形，多为双侧，可为常染色体显性或隐性遗传;</p>
-      <p>1、 先天性上睑下垂，为先天发育畸形，多为双侧，可为常染色体显性或隐性遗传;</p>
+      <%- projectInfo.fit_people %>
     </div>
     <div class="project-custom-title">
       <span class="iconfont icon-smile"></span>
       <span>技术优势:</span>
     </div>
     <div class="project-advantage project-content">
-        <p>1、 先天性上睑下垂，为先天发育畸形，多为双侧，可为常染色体显性或隐性遗传;</p>
-        <p>1、 先天性上睑下垂，为先天发育畸形，多为双侧，可为常染色体显性或隐性遗传;</p>
-        <p>1、 先天性上睑下垂，为先天发育畸形，多为双侧，可为常染色体显性或隐性遗传;</p>
-        <p>1、 先天性上睑下垂，为先天发育畸形，多为双侧，可为常染色体显性或隐性遗传;</p>
-        <p>1、 先天性上睑下垂，为先天发育畸形，多为双侧，可为常染色体显性或隐性遗传;</p>
+        <%- projectInfo.advantange %>
     </div>
     <div class="project-custom-title">
       <span class="iconfont icon-date"></span>
       <span>恢复时间:</span>
     </div>
     <div class="project-recover project-content">
-        <p>1、 先天性上睑下垂，为先天发育畸形，多为双侧，可为常染色体显性或隐性遗传;</p>
-        <p>1、 先天性上睑下垂，为先天发育畸形，多为双侧，可为常染色体显性或隐性遗传;</p>
-        <p>1、 先天性上睑下垂，为先天发育畸形，多为双侧，可为常染色体显性或隐性遗传;</p>
-        <p>1、 先天性上睑下垂，为先天发育畸形，多为双侧，可为常染色体显性或隐性遗传;</p>
-        <p>1、 先天性上睑下垂，为先天发育畸形，多为双侧，可为常染色体显性或隐性遗传;</p>
+        <%- projectInfo.recover_time %>
     </div>
     <div class="project-custom-title">
       <span class="iconfont icon-keep"></span>
       <span>推荐医师:</span>
     </div>
     <div class="project-doctor project-content">
-
+        <% projectInfo.doctor.forEach(function(item, index) { -%>
+          <img src="//image.0755mingyi.com/<%= item.list_url %>" />
+        <% }) -%>
     </div>
  </div>
  <%- include('footer') -%>

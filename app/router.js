@@ -8,6 +8,11 @@ module.exports = app => {
   router.get('/', app.middleware.layouts(), controller.fe.home.index)
   router.get('/front/doctor', controller.fe.doctor.index)
   router.get('/front/doctor/:id', controller.fe.doctor.edit)
+  router.get(
+    '/front/project/:id',
+    app.middleware.layouts(),
+    controller.fe.project.index
+  )
 
   router.post(
     `${app.config.apiPrefix}/userAccess/login`,
