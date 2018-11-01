@@ -49,7 +49,8 @@ class NewsService extends Service {
       // don't commit or rollback by yourself
       await conn.insert(`${app.config.tablePrefix}news`, {
         content_id: uuid,
-        importance: params.importance
+        importance: params.importance,
+        img_url: params.img_url
       })
 
       return { success: true }
@@ -64,7 +65,8 @@ class NewsService extends Service {
       await conn.update(
         `${app.config.tablePrefix}news`,
         {
-          importance: params.importance
+          importance: params.importance,
+          img_url: params.img_url
         },
         {
           where: {
