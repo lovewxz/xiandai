@@ -93,7 +93,7 @@ class CaseService extends Service {
   async getCaseById(id) {
     const { app } = this
     const queryColumn =
-      'a.id id,a.class_id class_id,b.class_name class_name,a.name name,a.title title, a.head_img head_img,a.result_img result_img,a.build_plan build_plan,a.introduction introduction,a.status status,a.article_json time_list'
+      'a.id id,a.class_id class_id,b.class_name class_name,a.name name,a.title title, a.head_img head_img,a.result_img result_img,a.build_plan build_plan,a.introduction introduction,a.status status,a.article_json time_list,a.updated_time updated_time '
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }case a left join ${
