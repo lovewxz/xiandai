@@ -51,7 +51,11 @@ class IndexService extends Service {
       app.config.tablePrefix
     }config  where setting_type = ?`
     const result = await this.app.mysql.queryOne(sql, settingType)
-    return JSON.parse(result.content)
+    if(result != null){
+      return JSON.parse(result.content)
+    }else{
+      return null
+    }
   }
 }
 
