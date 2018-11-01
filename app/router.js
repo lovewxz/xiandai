@@ -27,6 +27,10 @@ module.exports = app => {
     app.middleware.layouts(),
     controller.fe.case.edit
   )
+  router.get(
+    `${app.config.apiPrefix}/userAccess/create`,
+    controller.userAccess.create
+  )
 
   router.post(
     `${app.config.apiPrefix}/userAccess/login`,
