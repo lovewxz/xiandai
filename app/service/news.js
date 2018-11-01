@@ -86,7 +86,7 @@ class NewsService extends Service {
         content: params.content,
         status: params.status,
         sub_title: '',
-        introduction: '',
+        introduction: params.introduction,
         hits: 0
       }
       await this.ctx.service.content.update(contentObj, newsInfo.content_id)
@@ -114,7 +114,7 @@ class NewsService extends Service {
   async getNewsById(id) {
     const { app } = this
     const queryColumn =
-      'a.id id,a.content_id content_id,a.importance importance, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text,b.updated_time updated_time'
+      'a.id id,a.content_id content_id,a.img_url img_url,a.importance importance, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text,b.updated_time updated_time'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }news a left join ${
