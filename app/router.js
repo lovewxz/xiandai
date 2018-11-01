@@ -6,12 +6,26 @@
 module.exports = app => {
   const { router, controller } = app
   router.get('/', app.middleware.layouts(), controller.fe.home.index)
-  router.get('/front/doctor', controller.fe.doctor.index)
-  router.get('/front/doctor/:id', controller.fe.doctor.edit)
   router.get(
     '/front/project/:id',
     app.middleware.layouts(),
     controller.fe.project.index
+  )
+  router.get(
+    '/front/doctor',
+    app.middleware.layouts(),
+    controller.fe.doctor.index
+  )
+  router.get(
+    '/front/doctor/:id',
+    app.middleware.layouts(),
+    controller.fe.doctor.edit
+  )
+  router.get('/front/case', app.middleware.layouts(), controller.fe.case.index)
+  router.get(
+    '/front/case/:id',
+    app.middleware.layouts(),
+    controller.fe.case.edit
   )
 
   router.post(

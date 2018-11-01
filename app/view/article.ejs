@@ -1,12 +1,12 @@
 <%- include('header') -%>
 <div class="article-detail">
-  <h1 class="article-title"><%= title %></h1>
+  <h1 class="article-title"><%= doctor.title %></h1>
   <p class="article-info">
     <span class="article-time">更新时间: 2018-10-03</span>
     <span class="article-source">来源: 广州现代医疗美容医院</span>
   </p>
   <div class="article-content">
-      <%- content %>
+      <%- doctor.content %>
   </div>
 </div>
 <%- include('footer') -%>

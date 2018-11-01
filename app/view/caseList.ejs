@@ -1,0 +1,28 @@
+<%- include('header') -%>
+<div class="case-wrapper">
+    <ul>
+      <% list.detail.forEach(function(item) { -%>
+      <li class="case-item">
+        <a href="/front/case/<%= item.id %>" target="_blank">
+          <div class="case-content">
+            <div class="case-content-title">
+              <span>
+                <img src="//image.0755mingyi.com/<%= item.head_img %>" alt=""> </span>
+              <span>
+                <h2><%= item.name %></h2>
+                <p class="content-text"><%= item.bulid_plan %></p>
+              </span>
+            </div>
+            <div class="case-detail">
+              <p><%= item.introduction %></p>
+            </div>
+            <div class="case-pic">
+              <img src="//image.0755mingyi.com/<%= item.result_img %>" alt="">
+            </div>
+          </div>
+        </a>
+      </li>
+      <% }) -%>
+    </ul>
+ </div>
+ <%- include('footer') -%>

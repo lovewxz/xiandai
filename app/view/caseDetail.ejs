@@ -1,0 +1,40 @@
+<%- include('header') -%>
+<div class="case-article-wrapper">
+    <h1 class="case-title"><%= model.title %></h1>
+    <div class="case-info">
+      <span>时间: 2018-07-14</span>
+      <span>来源: 广州现代医疗美容</span>
+    </div>
+    <div class="case-compare">
+      <img src="//image.0755mingyi.com/<%= model.result_img %>" alt="">
+    </div>
+    <div class="sub-title">
+      <p><%= model.introduction %></p>
+      <a href="javascript:void(0);" onclick="openZoosUrl('chatwin');" target="_blank">
+       <p class="zx-red">更多整形问题，点击在线咨询>></p>
+      </a>
+    </div>
+    <% model.time_list.forEach(function(item, index) { -%>
+    <div class="diary-wrapper">
+       <div class="diary-title">
+         <span class="diary-num"><%= index+1 %></span>
+         <span class="diary-day"><%= item.recovery_day %></span>
+       </div>
+       <div class="diary-content">
+          <%- item.content %>
+       </div>
+       <div class="diary-pic">
+         <ul>
+            <% item.photos.forEach(function(item) { -%>
+              <li>
+                <img src="//image.0755mingyi.com/<%= item %>" alt="">
+              </li>
+            <% }) -%>
+             <li></li>
+             <li></li>
+         </ul>
+       </div>
+    </div>
+    <% }) -%>
+  </div>
+<%- include('footer') -%>

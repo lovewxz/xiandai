@@ -14,13 +14,6 @@ class ProjectController extends Controller {
       projectContent
     })
   }
-  async layouts() {
-    const { ctx, app } = this
-    const settings = await ctx.service.index.getIndexById(10)
-    const projectContent = await ctx.service.fe.home.projectIndex()
-    app.settings = settings
-    app.projectContent = projectContent
-  }
 }
 
 module.exports = ProjectController

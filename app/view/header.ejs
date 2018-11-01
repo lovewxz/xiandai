@@ -61,7 +61,7 @@
                   <ul>
                       <% content.list.forEach(function(item) { -%>
                         <li>
-                            <a href="javascript:void(0);" onclick='openZoosUrl("chatwin")' target="_blank">
+                            <a href="/front/project/<%= item.id %>" >
                               <i>
                                 <img src="//image.0755mingyi.com/<%= item.head_img %>" alt="">
                               </i>
@@ -76,3 +76,14 @@
       </div>
     </div>
   </header>
+  <div class="banner-containner">
+    <div class="swiper-wrapper">
+      <% settings.banner.forEach(function(item) { -%>
+      <div class="swiper-slide">
+        <a href="<%= item.link %>" target="_blank">
+          <img src="//image.0755mingyi.com/<%= item.pic %>" alt="">
+        </a>
+      </div>
+      <% }) -%>
+    </div>
+  </div>

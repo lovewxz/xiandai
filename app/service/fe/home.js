@@ -45,7 +45,7 @@ class HomeService extends Service {
 
   async projectIndex() {
     const { app } = this
-    const sql = `select a.class_id ,a.class_name,d. head_img,c.title from (SELECT class_id,class_name FROM ${
+    const sql = `select a.class_id ,a.class_name,d.head_img,d.id,c.title from (SELECT class_id,class_name FROM ${
       app.config.tablePrefix
     }content_class where parent_id = 14) a left join ${
       app.config.tablePrefix
@@ -62,6 +62,7 @@ class HomeService extends Service {
         item => item.class_id === content.class_id
       )
       const params = {
+        id: content.id,
         title: content.title,
         head_img: content.head_img
       }

@@ -2325,3 +2325,126 @@ footer .bottom-fixed ul li p {
   color: #666;
   line-height: 0.4rem;
 }
+
+.case-article-wrapper {
+  margin: 0.4rem;
+}
+.case-article-wrapper .case-title {
+  font-size: 0.43rem;
+  color: #000;
+  font-weight: bolder;
+  text-align: center;
+}
+.case-article-wrapper .case-info {
+  padding: 0.1875rem 0;
+  border-bottom: 1px solid #eee;
+  color: #999;
+  font-size: 0px;
+  text-align: center;
+  margin-bottom: 0.27rem;
+}
+
+.case-article-wrapper .case-info span {
+  font-size: 0.375rem;
+  margin-right: 0.125rem;
+}
+
+.case-article-wrapper .sub-title {
+  font-size: 0.24rem;
+  color: #000;
+  text-align: center;
+  margin: 0.4rem 0;
+}
+
+.case-article-wrapper .diary-title {
+  font-size: 0;
+}
+
+.case-article-wrapper .diary-title .diary-num {
+  width: 0.8rem;
+  height: 0.8rem;
+  background: #103181;
+  color: #fff;
+  line-height: 0.8rem;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 0.36rem;
+  display: inline-block;
+  z-index: 100;
+  position: relative;
+}
+
+.case-article-wrapper .diary-title .diary-day {
+  padding: 0.07rem 0.33rem;
+  font-size: 0.27rem;
+  color: #fff;
+  background: #103181;
+  margin-left: -10px;
+  z-index: 10;
+  border-radius: 0.13rem;
+}
+
+.case-article-wrapper .diary-content {
+  font-size: 0.24rem;
+  line-height: 0.4rem;
+  color: #666;
+  margin: 0.27rem 0;
+}
+
+.case-article-wrapper ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 0.2rem;
+}
+
+.case-article-wrapper ul li {
+  flex: 0 0 2.79rem;
+  margin-top: 0.2rem;
+}
+
+.case-article-wrapper .zx-red {
+  color: #b00000;
+}
+
+.case-article-wrapper .diary-wrapper {
+  margin-bottom: 0.53rem;
+}
+
+.case-wrapper ul li {
+  margin: 0.3rem;
+}
+
+.case-wrapper ul li .case-content .case-content-title {
+  font-size: 0;
+}
+
+.case-wrapper ul li .case-content .case-content-title span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.case-wrapper ul li .case-content .case-content-title span img {
+  width: 1.74rem;
+  height: 1.74rem;
+  border-radius: 50%;
+  margin-right: 0.15rem;
+}
+
+.case-wrapper ul li .case-content .case-content-title span h2 {
+  font-size: 0.54rem;
+  font-weight: bolder;
+  color: #000;
+}
+
+.case-wrapper ul li .case-content .case-content-title span .content-text {
+  font-size: 0.28rem;
+  color: #ef8126;
+}
+
+.case-wrapper ul li .case-content .case-detail {
+  margin: 0.28rem 0;
+  font-size: 0.31rem;
+  line-height: 0.44rem;
+  color: #6a6a6a;
+}
