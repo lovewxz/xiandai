@@ -16,8 +16,8 @@ class ProjectService extends Service {
       app.config.tablePrefix
     }project_doctor a left join ${
       app.config.tablePrefix
-    }doctor b on b.id = a.doctor_id`
-    const resultDoctor = await this.app.mysql.query(doctorSql)
+    }doctor b on b.id = a.doctor_id where a.project_id = ?`
+    const resultDoctor = await this.app.mysql.query(doctorSql,id)
     result.doctor = resultDoctor
     return result
   }
