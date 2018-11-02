@@ -10,7 +10,7 @@ class DoctorService extends Service {
     params.pageSize = isNaN(params.pageSize) ? 100 : params.pageSize
     const limitCount = (params.pageNo - 1) * params.pageSize
     const queryColumn =
-      'a.id id,a.content_id content_id,a.doctor_name doctor_name,a.goods_project goods_project,a.appointment_count appointment_count,a.up_hits up_hits,a.img_url img_url,a.list_url list_url, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text,b.updated_time updated_time'
+      'a.id id,a.content_id content_id,a.doctor_name doctor_name,a.profession profession,a.goods_project goods_project,a.appointment_count appointment_count,a.up_hits up_hits,a.img_url img_url,a.list_url list_url, c.channel_name channel_name,b.title title,b.introduction introduction,b.content content,b.hits hits,b.search_text search_text,b.updated_time updated_time'
     const sql = `select ${queryColumn} from ${
       app.config.tablePrefix
     }doctor a left join ${

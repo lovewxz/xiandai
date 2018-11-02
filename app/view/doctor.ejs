@@ -9,7 +9,7 @@
             </div>
             <div class="doc-detail">
               <h2><%= item.doctor_name %></h2>
-              <p class="job"><%= item.title %></p>
+              <p class="job"><%= item.profession %></p>
               <div class="good_project">
                 <span class="bold">擅长项目:</span>
                 <span><%= item.goods_project %></span>
@@ -20,9 +20,11 @@
                     立即咨询
                   </div>
                 </a>
-                <div class="doc-see">
-                  查看详情
-                </div>
+                <a href="/front/doctor/<%= item.id %>">
+                  <div class="doc-see">
+                    查看详情
+                  </div>
+                </a>
               </div>
             </div>
           </div>
